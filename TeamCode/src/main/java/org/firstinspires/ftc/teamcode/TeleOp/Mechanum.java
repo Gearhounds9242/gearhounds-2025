@@ -94,6 +94,7 @@ public class Mechanum extends OpMode
 //            robot.claw.setPower(-gamepad2.right_trigger*.5);
 //        } else robot.claw.setPower(0);
 
+        // Harry hi
 //        if (gamepad2.left_bumper) {
 //            robot.Servo1.setPosition(.4);
 //            robot.Servo2.setPosition(.6);
