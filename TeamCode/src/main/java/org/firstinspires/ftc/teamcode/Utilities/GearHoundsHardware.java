@@ -31,7 +31,7 @@ public class GearHoundsHardware extends Hardware {
 //    public DcMotorEx lift;
 //    public Servo claw;
 //    public DcMotor chain;
-//    //public DcMotorEx spinner;
+    public DcMotorEx linear;
 
     public static final int READ_PERIOD = 1;
     //public HuskyLens huskyLens;
@@ -73,15 +73,15 @@ public class GearHoundsHardware extends Hardware {
 //        lift = robotMap.get(DcMotorEx.class, "lift");
 //        intake = robotMap.get(DcMotorEx.class, "intake");
         leftFront  = robotMap.get(DcMotorEx.class, "front_left");
-        rightFront = robotMap.get(DcMotorEx.class, "right_lefy");
+        rightFront = robotMap.get(DcMotorEx.class, "right_front");
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //spinner = robotMap.get(DcMotorEx.class, "spinner");
+        linear = robotMap.get(DcMotorEx.class, "linear");
 //        chain = robotMap.get(DcMotor.class, "chain");
-        //spinner.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //spinner.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        linear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        linear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack  = robotMap.get(DcMotorEx.class, "back_left");
@@ -105,8 +105,8 @@ public class GearHoundsHardware extends Hardware {
         // Defines the parameters for the gyro (units)
         IMU.Parameters imuParameters = new IMU.Parameters(
                 new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                        RevHubOrientationOnRobot.UsbFacingDirection.LEFT
+                        RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                        RevHubOrientationOnRobot.UsbFacingDirection.UP
                 )
         );
         imu.initialize(imuParameters);

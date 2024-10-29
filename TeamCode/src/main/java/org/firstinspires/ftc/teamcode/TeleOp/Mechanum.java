@@ -101,16 +101,19 @@ public class Mechanum extends OpMode
 //        } else if (gamepad2.right_bumper) {
 //            robot.Servo1.setPosition(0.6);
 //            robot.Servo2.setPosition(0.4);
+ //       } else if (gamepad2.x) {
+//            robot.Servo1.setPosition(1);
+//            robot.Servo2.setPosition(1);
 //        }
 
 //        if (-gamepad2.right_stick_y > 0) {
 //            Moving = false;
-//            robot.spinner.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//            robot.spinner.setPower(-gamepad2.right_stick_y*4);
+//            robot.linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            robot.linear.setPower(-gamepad2.right_stick_y*4);
 //        } else if (-gamepad2.right_stick_y < 0 && robot.spinner.getCurrentPosition() > 40) {
 //            Moving = false;
-//            robot.spinner.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//            robot.spinner.setPower(-gamepad2.right_stick_y*4);
+//            robot.linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            robot.linear.setPower(-gamepad2.right_stick_y*4);
 //        } else {
 //            if (Moving == false) {
 //                robot.spinner.setPower(0);
