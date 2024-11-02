@@ -105,7 +105,7 @@ public class Mechanum extends OpMode
 //            robot.Servo1.setPosition(1);
 //            robot.Servo2.setPosition(1);
 //        }
-
+    //linearpower = gamepad2.right_stick_y
         if (-gamepad2.right_stick_y > 0) {
             Moving = false;
             robot.linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
