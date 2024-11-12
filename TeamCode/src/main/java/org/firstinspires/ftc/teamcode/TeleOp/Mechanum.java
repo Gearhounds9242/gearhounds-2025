@@ -306,7 +306,7 @@ public class Mechanum extends OpMode
         robot.rightFront.setPower(0);
         robot.leftBack.setPower(0);
         robot.rightBack.setPower(0);
-//        robot.lift.setPower(0);
+        robot.lift.setPower(0);
         //robot.spinner.setPower(0);
         //robot.claw.setPower(0);
 //        robot.claw.setPosition(0);
