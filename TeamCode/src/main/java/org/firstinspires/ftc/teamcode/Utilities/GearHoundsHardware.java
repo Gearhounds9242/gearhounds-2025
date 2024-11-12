@@ -28,7 +28,7 @@ public class GearHoundsHardware extends Hardware {
 //    public Servo Servo1;
 //    public Servo Servo2;
 //    public DcMotorEx intake;
-//    public DcMotorEx lift;
+    public DcMotorEx lift;
 //    public Servo claw;
 //    public DcMotor chain;
     public DcMotorEx linear;
@@ -70,7 +70,7 @@ public class GearHoundsHardware extends Hardware {
 //        Servo2 = robotMap.get(Servo.class, "Servo2");
 //        hanger = robotMap.get(DcMotorEx.class, "hanger");
 //        claw = robotMap.get(Servo.class, "sticks");
-//        lift = robotMap.get(DcMotorEx.class, "lift");
+        lift = robotMap.get(DcMotorEx.class, "lift");
 //        intake = robotMap.get(DcMotorEx.class, "intake");
         leftFront  = robotMap.get(DcMotorEx.class, "front_left");
         rightFront = robotMap.get(DcMotorEx.class, "front_right");
@@ -81,7 +81,7 @@ public class GearHoundsHardware extends Hardware {
         linear = robotMap.get(DcMotorEx.class, "linear");
 //        chain = robotMap.get(DcMotor.class, "chain");
         linear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        linear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack  = robotMap.get(DcMotorEx.class, "back_left");
@@ -92,11 +92,11 @@ public class GearHoundsHardware extends Hardware {
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        chain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        chain.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        hanger.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        hanger.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightBack.setDirection(DcMotor.Direction.REVERSE);
+        rightBack.setDirection(DcMotor.Direction.FORWARD);
 //        huskyLens = robotMap.get(HuskyLens.class, "huskyLens");
 
         // Defines the REV Hub's internal IMU (Gyro)

@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Utilities.GearHoundsHardware;
 
 /* This program is the robot's main TeleOp program which gets run
  * constistently every TeleOperated period. This allows for driver control
- * of the drivetrain, and operator control of all other subsytems on the robot.*/
+ * of the drivetrain, and operator control of all other subsystems on the robot.*/
 
 public class Mechanum extends OpMode
 {
@@ -105,33 +105,26 @@ public class Mechanum extends OpMode
 //            robot.Servo1.setPosition(1);
 //            robot.Servo2.setPosition(1);
 //        }
+        if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() <  22840) {  // 22840 is upper limit on Linear Actuator for future me
+            robot.linear.setPower(-gamepad2.right_stick_y);
+        } else if (gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() > 0) {
+            robot.linear.setPower(-gamepad2.right_stick_y);
 
-        if (-gamepad2.right_stick_y > -3) {
-            Moving = false;
-            robot.linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.linear.setPower(-gamepad2.right_stick_y*4);
-        } else if (-gamepad2.right_stick_y < 0 && robot.linear.getCurrentPosition() > 100) {
-            Moving = false;
-            robot.linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.linear.setPower(-gamepad2.right_stick_y*4);
-        } else {
-            if (Moving == false) {
-                robot.linear.setPower(0);
-            }
-        }
+        } else robot.linear.setPower(0);
 //
-//        if (-gamepad2.left_stick_y > 0) {
-//            robot.lift.setPower(-gamepad2.left_stick_y);
-//        } else if (-gamepad2.left_stick_y < 0 && robot.lift.getCurrentPosition() > 40) {
-//            robot.lift.setPower(-gamepad2.left_stick_y);
-//        } else robot.lift.setPower(0);
-
-
+//
+        if (-gamepad2.left_stick_y > 0 && robot.lift.getCurrentPosition() > -5950) {  // 5950 is upper limit on lift for future me
+            robot.lift.setPower(gamepad2.left_stick_y);
+        } else if (-gamepad2.left_stick_y < 0 && robot.lift.getCurrentPosition() < 0) {
+            robot.lift.setPower(gamepad2.left_stick_y);
+        } else robot.lift.setPower(0);
+//
+//
 //        if (gamepad2.right_bumper)
 //            robot.claw.setPosition(.5);
-////
-////        if (gamepad2.left_bumper)
-////            robot.sticks.setPosition(.45);
+//
+//        if (gamepad2.left_bumper)
+//            robot.sticks.setPosition(.45);
 //
 //        if (gamepad2.left_trigger > 0.1) {
 //            Chaining = false;
@@ -220,7 +213,9 @@ public class Mechanum extends OpMode
 
 //        telemetry.addData("", "chain %d", robot.chain.getCurrentPosition());
 //
-//        telemetry.addData("", "lift %d", robot.lift.getCurrentPosition());
+        telemetry.addData("", "Lift %d", robot.lift.getCurrentPosition());
+
+        telemetry.addData("", "Linear %d", robot.linear.getCurrentPosition());
 
 
 
@@ -317,7 +312,7 @@ public class Mechanum extends OpMode
 //        robot.claw.setPosition(0);
     }
 
-//    // fuction used to make sure that the value inputted to the
+//    // function used to make sure that the value inputted to the
 //    // motors stays between 1 and -1
 //    private double clamp(double x, double min, double max) {
 //
