@@ -105,9 +105,9 @@ public class Mechanum extends OpMode
 //            robot.Servo1.setPosition(1);
 //            robot.Servo2.setPosition(1);
 //        }
-        if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() <  22840) {  // 22840 is upper limit on Linear Actuator for future me
+        if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() <  21000) {  // 21840 is upper limit on Linear Actuator for future me
             robot.linear.setPower(-gamepad2.right_stick_y);
-        } else if (gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() > 0) {
+        } else if (gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() > 400 ) {
             robot.linear.setPower(-gamepad2.right_stick_y);
 
         } else robot.linear.setPower(0);
