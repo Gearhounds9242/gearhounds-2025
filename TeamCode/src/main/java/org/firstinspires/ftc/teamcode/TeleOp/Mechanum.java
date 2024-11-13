@@ -113,9 +113,9 @@ public class Mechanum extends OpMode
         } else robot.linear.setPower(0);
 //
 //
-        if (-gamepad2.left_stick_y > 0 && robot.lift.getCurrentPosition() > -5950) {  // 5950 is upper limit on lift for future me
+        if (-gamepad2.left_stick_y > 0 && robot.lift.getCurrentPosition() > 400) {  // 5950 is upper limit on lift for future me
             robot.lift.setPower(gamepad2.left_stick_y);
-        } else if (-gamepad2.left_stick_y < 0 && robot.lift.getCurrentPosition() < 0) {
+        } else if (-gamepad2.left_stick_y < 0 && robot.lift.getCurrentPosition() < 6000) {
             robot.lift.setPower(gamepad2.left_stick_y);
         } else robot.lift.setPower(0);
 //
@@ -225,9 +225,9 @@ public class Mechanum extends OpMode
 
         //code taken from https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
         double facing = robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-        double y = -gamepad1.left_stick_y;
-        double x = gamepad1.left_stick_x;
-        double rx = gamepad1.right_stick_x;
+        double y = gamepad1.left_stick_y;
+        double x = -gamepad1.left_stick_x;
+        double rx = -gamepad1.right_stick_x;
         if (gamepad1.options) {
             robot.imu.resetYaw();
         }
