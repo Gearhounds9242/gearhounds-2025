@@ -37,6 +37,7 @@ public class Mechanum extends OpMode
 
         // Intializes the hardwareMap found in "GearHoundsHardware" class
         robot.init(hardwareMap);
+        gamepad1.setLedColor(111,60,137,100000);
     }
 
 
@@ -105,18 +106,17 @@ public class Mechanum extends OpMode
 //            robot.Servo1.setPosition(1);
 //            robot.Servo2.setPosition(1);
 //        }
-        if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() <  21000) {  // 21840 is upper limit on Linear Actuator for future me
-            robot.linear.setPower(-gamepad2.right_stick_y);
+        if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() <  20900) {  // 21000 is upper limit on Linear Actuator for future me
+            robot.linear.setVelocity(-gamepad2.right_stick_y * 10000);
         } else if (gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() > 400 ) {
-            robot.linear.setPower(-gamepad2.right_stick_y);
-
+            robot.linear.setVelocity(-gamepad2.right_stick_y * 10000);
         } else robot.linear.setPower(0);
 //
 //
-        if (-gamepad2.left_stick_y > 0 && robot.lift.getCurrentPosition() > 400) {  // 5950 is upper limit on lift for future me
-            robot.lift.setPower(gamepad2.left_stick_y);
-        } else if (-gamepad2.left_stick_y < 0 && robot.lift.getCurrentPosition() < 6000) {
-            robot.lift.setPower(gamepad2.left_stick_y);
+        if (-gamepad2.left_stick_y > 0 && robot.lift.getCurrentPosition() < 6000) {  // 5950 is upper limit on lift for future me
+            robot.lift.setVelocity(gamepad2.left_stick_y * 4);
+        } else if (-gamepad2.left_stick_y < 0 && robot.lift.getCurrentPosition() > 400) {
+            robot.lift.setVelocity(gamepad2.left_stick_y * 4);
         } else robot.lift.setPower(0);
 //
 //
