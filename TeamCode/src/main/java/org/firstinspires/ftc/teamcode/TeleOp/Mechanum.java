@@ -37,7 +37,7 @@ public class Mechanum extends OpMode
 
         // Intializes the hardwareMap found in "GearHoundsHardware" class
         robot.init(hardwareMap);
-        gamepad1.setLedColor(111,60,137,100000);
+        gamepad1.setLedColor(111,60,137,1000000000);
     }
 
 
@@ -106,17 +106,17 @@ public class Mechanum extends OpMode
 //            robot.Servo1.setPosition(1);
 //            robot.Servo2.setPosition(1);
 //        }
-        if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() <  20900) {  // 21000 is upper limit on Linear Actuator for future me
-            robot.linear.setVelocity(-gamepad2.right_stick_y * 10000);
-        } else if (gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() > 400 ) {
-            robot.linear.setVelocity(-gamepad2.right_stick_y * 10000);
+        if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() <  20100) {  // 21000 is upper limit on Linear Actuator for future me
+            robot.linear.setVelocity(-gamepad2.right_stick_y * 5000);
+        } else if (gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() > 200 ) {
+            robot.linear.setVelocity(-gamepad2.right_stick_y * 6000);
         } else robot.linear.setPower(0);
 //
 //
         if (-gamepad2.left_stick_y > 0 && robot.lift.getCurrentPosition() < 6000) {  // 5950 is upper limit on lift for future me
-            robot.lift.setVelocity(gamepad2.left_stick_y * 4);
+            robot.lift.setPower(gamepad2.left_stick_y * 4);
         } else if (-gamepad2.left_stick_y < 0 && robot.lift.getCurrentPosition() > 400) {
-            robot.lift.setVelocity(gamepad2.left_stick_y * 4);
+            robot.lift.setPower(gamepad2.left_stick_y * 4);
         } else robot.lift.setPower(0);
 //
 //
@@ -225,8 +225,8 @@ public class Mechanum extends OpMode
 
         //code taken from https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
         double facing = robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-        double y = gamepad1.left_stick_y;
-        double x = -gamepad1.left_stick_x;
+        double y = -gamepad1.left_stick_y;
+        double x = gamepad1.left_stick_x;
         double rx = -gamepad1.right_stick_x;
         if (gamepad1.options) {
             robot.imu.resetYaw();
