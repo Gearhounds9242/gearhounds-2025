@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -25,11 +26,11 @@ public class GearHoundsHardware extends Hardware {
 //    public DcMotorEx hanger;
 //    public Servo launcher;
 //
-//    public Servo Servo1;
-//    public Servo Servo2;
+    public Servo leftClaw;
+    public Servo rightClaw;
 //    public DcMotorEx intake;
     public DcMotorEx lift;
-//    public Servo claw;
+    public Servo wrist;
 //    public DcMotor chain;
     public DcMotorEx linear;
 
@@ -66,10 +67,10 @@ public class GearHoundsHardware extends Hardware {
         //huskyLens = robotMap.get(HuskyLens.class, "huskyLens");
 
 //        launcher = robotMap.get(Servo.class, "launcher");
-//        Servo1 = robotMap.get(Servo.class, "Servo1");
-//        Servo2 = robotMap.get(Servo.class, "Servo2");
+        leftClaw = robotMap.get(Servo.class, "left_claw");
+        rightClaw = robotMap.get(Servo.class, "right_claw");
 //        hanger = robotMap.get(DcMotorEx.class, "hanger");
-//        claw = robotMap.get(Servo.class, "sticks");
+        wrist = robotMap.get(Servo.class, "wrist");
         lift = robotMap.get(DcMotorEx.class, "lift");
 //        intake = robotMap.get(DcMotorEx.class, "intake");
         leftFront  = robotMap.get(DcMotorEx.class, "front_left");
