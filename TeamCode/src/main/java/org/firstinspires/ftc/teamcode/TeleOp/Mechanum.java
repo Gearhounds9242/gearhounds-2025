@@ -66,7 +66,7 @@ public class Mechanum extends OpMode {
     @Override
     public void loop()
 //This is the code that allows the driver to change speed based on controller input.
-        {
+    {
         if (gamepad1.right_bumper) {
             shift = 1.0;
         }
@@ -91,14 +91,7 @@ public class Mechanum extends OpMode {
         }
 
 
-
 //This is the code that allows you to bypass the limmits on the linear actuator. WORK IN PROGRESS
-        if (gamepad2.share && gamepad2.dpad_up) {
-            robot.linear.setPower(-300);
-        } else if (gamepad2.share && gamepad2.dpad_down) {
-            robot.linear.setPower(300);
-        }
-
 
 
 //This is the code that changes the color on the Dualshock 4
@@ -106,13 +99,11 @@ public class Mechanum extends OpMode {
         gamepad2.setLedColor(0, 0, 100, 1000000);
 
 
-
 //        if (gamepad2.left_trigger != 0) {
 //            robot.claw.setPower(gamepad2.left_trigger*.5);
 //        } else if (gamepad2.right_trigger != 0) {
 //            robot.claw.setPower(-gamepad2.right_trigger*.5);
 //        } else robot.claw.setPower(0);
-
 
 
 //This is the code that lets the Operator to open and close the claw, via the left and right bumpers (L1 & R1) on the controller.
@@ -125,31 +116,33 @@ public class Mechanum extends OpMode {
         }
 
 
-
 //This code controlls the wrist, via the left and right triggers (L2 & R2) on the controller.
-        if (gamepad2.left_trigger > 0.1 ) {
-            robot.wrist.setPosition (1);
+        if (gamepad2.left_trigger > 0.1) {
+            robot.wrist.setPosition(1);
         } else if (gamepad2.right_trigger > 0.1) {
-            robot.wrist.setPosition (0);
+            robot.wrist.setPosition(0);
         }
 
 
-
-//This is the code that controlls the wrist but it is preasure sensitive. WORK IN PROGRESS
-            if (gamepad2.left_trigger > 0 && robot.wrist.getPosition() < 1) {
-            robot.wrist.setPosition(robot.wrist.getPosition() + 0.2);
-        } else if (gamepad2.right_trigger > 0 && robot.wrist.getPosition() > 0) {
-            robot.wrist.setPosition(robot.wrist.getPosition() - 0.2);
-        }
-
+////This is the code that controlls the wrist but it is preasure sensitive. WORK IN PROGRESS
+//            if (gamepad2.left_trigger > 0 && robot.wrist.getPosition() < 1) {
+//            robot.wrist.setPosition(robot.wrist.getPosition() + 0.2);
+//        } else if (gamepad2.right_trigger > 0 && robot.wrist.getPosition() > 0) {
+//            robot.wrist.setPosition(robot.wrist.getPosition() - 0.2);
+//        }
 
 
 //This code allows you to move the linear actuator in and out with limits and changeable speed
-            if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() < 20100) {  // 20100 is upper limit on Linear Actuator for future me
-                robot.linear.setVelocity(-gamepad2.right_stick_y * 5000);
+        if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() < 20100) {  // 20100 is upper limit on Linear Actuator for future me
+            robot.linear.setVelocity(-gamepad2.right_stick_y * 5000);
         } else if (gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() > 200) {
-                robot.linear.setVelocity(-gamepad2.right_stick_y * 6000);
+            robot.linear.setVelocity(-gamepad2.right_stick_y * 6000);
+        } else if (gamepad2.share && gamepad2.dpad_up) {
+            robot.linear.setPower(-300);
+        } else if (gamepad2.share && gamepad2.dpad_down) {
+            robot.linear.setPower(300);
         } else robot.linear.setPower(0);
+
 
 
 
@@ -272,6 +265,10 @@ public class Mechanum extends OpMode {
             double rx = -gamepad1.right_stick_x;
             if (gamepad1.options) {
                 robot.imu.resetYaw();
+            }
+
+            if (gamepad1.options) {
+                robot.linear.resetDeviceConfigurationForOpMode();
             }
 
 
