@@ -98,6 +98,7 @@ public class GearHoundsHardware extends Hardware {
 //        hanger.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        hanger.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBack.setDirection(DcMotor.Direction.FORWARD);
+        linear.setMode(DcMotor.RunMode.RESET_ENCODERS);
 //        huskyLens = robotMap.get(HuskyLens.class, "huskyLens");
 
         // Defines the REV Hub's internal IMU (Gyro)
