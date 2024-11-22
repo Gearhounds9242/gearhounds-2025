@@ -133,10 +133,10 @@ public class Mechanum extends OpMode {
 
 
 //This code allows you to move the linear actuator in and out with limits and changeable speed
-        if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() < 20100) {  // 20100 is upper limit on Linear Actuator for future me
-            robot.linear.setVelocity(-gamepad2.right_stick_y * 5000);
+            if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() < 20100) {  // 20100 is upper limit on Linear Actuator for future me
+            robot.linear.setVelocity(-gamepad2.right_stick_y * 8000);
         } else if (gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() > 200) {
-            robot.linear.setVelocity(-gamepad2.right_stick_y * 6000);
+            robot.linear.setVelocity(-gamepad2.right_stick_y * 9000);
         } else if (gamepad2.share && gamepad2.dpad_up) {
             robot.linear.setPower(-300);
         } else if (gamepad2.share && gamepad2.dpad_down) {
