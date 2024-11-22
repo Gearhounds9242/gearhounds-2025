@@ -57,7 +57,13 @@ public class Mechanum extends OpMode {
     @Override
     public void start() {
         runtime.reset();
+
+
+        //This is the code that changes the color on the Dualshock 4
+        gamepad1.setLedColor(17, 0, 17, 1000000000);
+        gamepad2.setLedColor(0, 10, 10, 1000000000);
     }
+
 
 
     /*
@@ -91,13 +97,6 @@ public class Mechanum extends OpMode {
         }
 
 
-//This is the code that allows you to bypass the limmits on the linear actuator. WORK IN PROGRESS
-
-
-//This is the code that changes the color on the Dualshock 4
-        gamepad1.setLedColor(17, 0, 17, 1000000);
-        gamepad2.setLedColor(0, 0, 100, 1000000);
-
 
 //        if (gamepad2.left_trigger != 0) {
 //            robot.claw.setPower(gamepad2.left_trigger*.5);
@@ -108,11 +107,11 @@ public class Mechanum extends OpMode {
 
 //This is the code that lets the Operator to open and close the claw, via the left and right bumpers (L1 & R1) on the controller.
         if (gamepad2.left_bumper) {
-            robot.leftClaw.setPosition(1);
-            robot.rightClaw.setPosition(-0.6);
+            robot.leftClaw.setPosition(0.9);
+            robot.rightClaw.setPosition(-0.5);
         } else if (gamepad2.right_bumper) {
-            robot.leftClaw.setPosition(-0.4);
-            robot.rightClaw.setPosition(1);
+            robot.leftClaw.setPosition(-0.5);
+            robot.rightClaw.setPosition(0.9);
         }
 
 
