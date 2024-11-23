@@ -96,6 +96,13 @@ public class Mechanum extends OpMode {
             shift = 1;
         }
 
+        if (gamepad2.options) {
+            robot.linear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            telemetry.addData("endcoder", "Resetting Lift Encoder");
+        }
+        telemetry.update();
+
 
 
 //        if (gamepad2.left_trigger != 0) {
@@ -107,8 +114,8 @@ public class Mechanum extends OpMode {
 
 //This is the code that lets the Operator to open and close the claw, via the left and right bumpers (L1 & R1) on the controller.
         if (gamepad2.left_bumper) {
-            robot.leftClaw.setPosition(1);
-            robot.rightClaw.setPosition(-0.6);
+            robot.leftClaw.setPosition(.6);
+            robot.rightClaw.setPosition(-0.2);
         } else if (gamepad2.right_bumper) {
             robot.leftClaw.setPosition(-0.6);
             robot.rightClaw.setPosition(0.6);
@@ -121,17 +128,18 @@ public class Mechanum extends OpMode {
 
 //This code controlls the wrist, via the left and right triggers (L2 & R2) on the controller.
         if (gamepad2.left_trigger > 0.1) {
-            robot.wrist.setPosition(1);
+            robot.wrist.setPosition(0.7);
         } else if (gamepad2.right_trigger > 0.1) {
             robot.wrist.setPosition(0);
-        }
+    }
+
 
 
 ////This is the code that controlls the wrist but it is preasure sensitive. WORK IN PROGRESS
 //            if (gamepad2.left_trigger > 0 && robot.wrist.getPosition() < 1) {
-//            robot.wrist.setPosition(robot.wrist.getPosition() + 0.2);
-//        } else if (gamepad2.right_trigger > 0 && robot.wrist.getPosition() > 0) {
-//            robot.wrist.setPosition(robot.wrist.getPosition() - 0.2);
+//            robot.wrist.setPosition(robot.wrist.getPosition() + 0.01);
+//        } else if (gamepad2.right_trigger > 0 && robot.wrist.getPosition() > -1) {
+//            robot.wrist.setPosition(robot.wrist.getPosition() - 0.01);
 //        }
 
 
@@ -140,9 +148,9 @@ public class Mechanum extends OpMode {
             robot.linear.setVelocity(-gamepad2.right_stick_y * 8000);
         } else if (gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() > 200) {
             robot.linear.setVelocity(-gamepad2.right_stick_y * 9000);
-        } else if (gamepad2.share && gamepad2.dpad_up) {
-            robot.linear.setPower(-300);
         } else if (gamepad2.share && gamepad2.dpad_down) {
+            robot.linear.setPower(-300);
+        } else if (gamepad2.share && gamepad2.dpad_up) {
             robot.linear.setPower(300);
         } else robot.linear.setPower(0);
 

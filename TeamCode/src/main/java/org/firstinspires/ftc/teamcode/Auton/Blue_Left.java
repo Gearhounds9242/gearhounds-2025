@@ -104,9 +104,9 @@ public class Blue_Left extends LinearOpMode {
 
         robot.wrist.setPosition(0);
 
-        steps.add(new StrafeForDistance(robot,20 , 1, 1, runtime, 5, -0.5, 1));
-        steps.add(new StrafeForDistance(robot, 20, 1, 1, runtime, 5, 0.5, 1));
-        steps.add(new MoveForDistance(robot, 43, 3, 4, runtime, 5, 10, 1));
+        steps.add(new StrafeForDistance(robot,20 , 1, 1, runtime, 5, -0.75, 1));
+        steps.add(new StrafeForDistance(robot, 20, 1, 1, runtime, 5, 0.75, 1));
+        steps.add(new MoveForDistance(robot, 43, 3, 4, runtime, 5, 1, 1));
         steps.add(new StrafeForDistance(robot, 24, 3, 6, runtime, 5, -0.5, 1));
         steps.add(new MoveForDistance(robot, 37, 5, 4, runtime, 5, -1, 1));
         steps.add(new MoveForDistance(robot, 37, 1, 3, runtime, 5, 1, 1));
