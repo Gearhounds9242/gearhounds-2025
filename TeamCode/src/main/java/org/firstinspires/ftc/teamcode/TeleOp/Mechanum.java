@@ -107,11 +107,15 @@ public class Mechanum extends OpMode {
 
 //This is the code that lets the Operator to open and close the claw, via the left and right bumpers (L1 & R1) on the controller.
         if (gamepad2.left_bumper) {
-            robot.leftClaw.setPosition(0.9);
-            robot.rightClaw.setPosition(-0.5);
+            robot.leftClaw.setPosition(1);
+            robot.rightClaw.setPosition(-0.6);
         } else if (gamepad2.right_bumper) {
-            robot.leftClaw.setPosition(-0.5);
-            robot.rightClaw.setPosition(0.9);
+            robot.leftClaw.setPosition(-0.6);
+            robot.rightClaw.setPosition(0.6);
+        }
+
+        if (gamepad2.options) {
+            robot.linear.resetDeviceConfigurationForOpMode();
         }
 
 
@@ -148,7 +152,7 @@ public class Mechanum extends OpMode {
 //This code allows you to move the lift up and down with limits and changeable speed
             if (-gamepad2.left_stick_y > 0 && robot.lift.getCurrentPosition() > -5955) {  // -6000 is upper limit on lift for future me
                 robot.lift.setVelocity(gamepad2.left_stick_y * 2000);
-        } else if (-gamepad2.left_stick_y < 0 && robot.lift.getCurrentPosition() < -0) {
+        } else if (-gamepad2.left_stick_y < 0 && robot.lift.getCurrentPosition() < -40) {
                 robot.lift.setVelocity(gamepad2.left_stick_y * 2000);
         } else robot.lift.setPower(0);
 
@@ -266,9 +270,6 @@ public class Mechanum extends OpMode {
                 robot.imu.resetYaw();
             }
 
-            if (gamepad1.options) {
-                robot.linear.resetDeviceConfigurationForOpMode();
-            }
 
 
 //        public void drive_update() {
