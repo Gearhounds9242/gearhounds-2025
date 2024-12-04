@@ -77,7 +77,7 @@ import java.util.List;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name = "BlueLeft")
+@Autonomous(name = "Red_Left")
 public class Red_Left extends LinearOpMode {
     private GearHoundsHardware robot = new GearHoundsHardware();
     //Create elapsed time variable and an instance of elapsed time
@@ -98,11 +98,11 @@ public class Red_Left extends LinearOpMode {
         }
 
         telemetry.update();
-        robot.leftClaw.setPosition(1);
-
-        robot.rightClaw.setPosition(-0.6);
-
-        robot.wrist.setPosition(0);
+//        robot.leftClaw.setPosition(1);
+//
+//        robot.rightClaw.setPosition(-0.6);
+//
+//        robot.wrist.setPosition(0);
 
         steps.add(new StrafeForDistance(robot,20 , 1, 1, runtime, 5, -0.5, 1));
         steps.add(new StrafeForDistance(robot, 20, 1, 1, runtime, 5, 0.5, 1));
