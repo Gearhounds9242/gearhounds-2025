@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.Utilities;
 
-//import com.qualcomm.hardware.bosch.BNO055IMU;
+//import com.qualcomm.hardware.bosch.BNO055IMU i
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -28,6 +29,7 @@ public class GearHoundsHardware extends Hardware {
 //
     public Servo leftClaw;
     public Servo rightClaw;
+    public Servo elbow;
 //    public DcMotorEx intake;
     public DcMotorEx lift;
     public Servo wrist;
@@ -69,6 +71,7 @@ public class GearHoundsHardware extends Hardware {
 //        launcher = robotMap.get(Servo.class, "launcher");
         leftClaw = robotMap.get(Servo.class, "left_claw");
         rightClaw = robotMap.get(Servo.class, "right_claw");
+        elbow = robotMap.get(Servo.class, "elbow");
 //        hanger = robotMap.get(DcMotorEx.class, "hanger");
         wrist = robotMap.get(Servo.class, "wrist");
         lift = robotMap.get(DcMotorEx.class, "lift");
@@ -83,6 +86,7 @@ public class GearHoundsHardware extends Hardware {
 //        chain = robotMap.get(DcMotor.class, "chain");
         linear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setDirection(DcMotorSimple.Direction.REVERSE);
         //leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack  = robotMap.get(DcMotorEx.class, "back_left");

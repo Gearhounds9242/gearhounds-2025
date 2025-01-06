@@ -96,10 +96,23 @@ public class Mechanum extends OpMode {
             shift = 1;
         }
 
-        if (gamepad2.options) {
+
+
+//This code allows you to reset the Linear Actuator by clicking in the right stick (R3) and Options
+        if (gamepad2.options && gamepad2.right_stick_button) {
             robot.linear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            telemetry.addData("endcoder", "Resetting Lift Encoder");
+            gamepad2.rumbleBlips(2);
+            telemetry.addLine("Resetting Linear Encoder");
+        }
+        telemetry.update();
+
+//This code allows you to reset the Linear Actuator by clicking in the left stick (L3) and Options
+        if (gamepad2.options && gamepad2.left_stick_button) {
+            robot.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            gamepad2.rumbleBlips(1);
+            telemetry.addLine("Resetting Lift Encoder");
         }
         telemetry.update();
 
@@ -114,54 +127,58 @@ public class Mechanum extends OpMode {
 
 //This is the code that lets the Operator to open and close the claw, via the left and right bumpers (L1 & R1) on the controller.
         if (gamepad2.left_bumper) {
-            robot.leftClaw.setPosition(.6);
-            robot.rightClaw.setPosition(-0.2);
+            robot.leftClaw.setPosition(0.4);
+            robot.rightClaw.setPosition(0.4);
         } else if (gamepad2.right_bumper) {
-            robot.leftClaw.setPosition(-0.6);
-            robot.rightClaw.setPosition(0.6);
-        }
-
-        if (gamepad2.options) {
-            robot.linear.resetDeviceConfigurationForOpMode();
+            robot.leftClaw.setPosition(0.2);
+            robot.rightClaw.setPosition(1);
         }
 
 
-//This code controlls the wrist, via the left and right triggers (L2 & R2) on the controller.
-        if (gamepad2.left_trigger > 0.1) {
-            robot.wrist.setPosition(0.7);
-        } else if (gamepad2.right_trigger > 0.1) {
-            robot.wrist.setPosition(0);
+
+//This code controls the wrist, via the A and Y (X & Triangle) on the controller.
+        if (gamepad2.a) {
+            robot.elbow.setPosition(0.8);
+        }
+        else if (gamepad2.y) {
+            robot.elbow.setPosition(0.2);
+        }
+
+
+
+//This code controls the wrist, via the B and X (Circle & Square) on the controller.
+        if (gamepad2.b) {
+            robot.wrist.setPosition(1);
+        } else if (gamepad2.x) {
+            robot.wrist.setPosition(0.2);
     }
 
 
 
-////This is the code that controlls the wrist but it is preasure sensitive. WORK IN PROGRESS
-//            if (gamepad2.left_trigger > 0 && robot.wrist.getPosition() < 1) {
-//            robot.wrist.setPosition(robot.wrist.getPosition() + 0.01);
-//        } else if (gamepad2.right_trigger > 0 && robot.wrist.getPosition() > -1) {
-//            robot.wrist.setPosition(robot.wrist.getPosition() - 0.01);
-//        }
-
-
 //This code allows you to move the linear actuator in and out with limits and changeable speed
-            if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() < 20100) {  // 20100 is upper limit on Linear Actuator for future me
+            if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() < 5200) {  // 5030 is upper limit on Linear Actuator for future me
             robot.linear.setVelocity(-gamepad2.right_stick_y * 8000);
-        } else if (gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() > 200) {
+        } else if (gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() > 30 ) { // 740 is lower limit on Linear Actuator for future me
             robot.linear.setVelocity(-gamepad2.right_stick_y * 9000);
-        } else if (gamepad2.share && gamepad2.dpad_down) {
-            robot.linear.setPower(-300);
-        } else if (gamepad2.share && gamepad2.dpad_up) {
-            robot.linear.setPower(300);
+        } else if (gamepad2.share && gamepad2.dpad_down) {   // This code allows you to bypass the limits on the Linear Actuator using the Share button + d-pad up and down
+            robot.linear.setPower(-300);                     //
+        } else if (gamepad2.share && gamepad2.dpad_up) {     //
+            robot.linear.setPower(300);                      //\
+
         } else robot.linear.setPower(0);
 
 
 
 
 //This code allows you to move the lift up and down with limits and changeable speed
-            if (-gamepad2.left_stick_y > 0 && robot.lift.getCurrentPosition() > -5955) {  // -6000 is upper limit on lift for future me
-                robot.lift.setVelocity(gamepad2.left_stick_y * 2000);
-        } else if (-gamepad2.left_stick_y < 0 && robot.lift.getCurrentPosition() < -40) {
-                robot.lift.setVelocity(gamepad2.left_stick_y * 2000);
+            if (-gamepad2.left_stick_y > 0 && robot.lift.getCurrentPosition() > -10000) {  // -5955 is upper limit on lift for future me
+            robot.lift.setVelocity(gamepad2.left_stick_y * 2000);
+        } else if (-gamepad2.left_stick_y < 0 && robot.lift.getCurrentPosition() < -200) {
+            robot.lift.setVelocity(gamepad2.left_stick_y * 2000);
+        }  else if (gamepad2.options && gamepad2.dpad_down) { // This code allows you to bypass the limits on the Lift using the Options button + d-pad up and down
+            robot.lift.setPower(-300);                        //
+        } else if (gamepad2.options && gamepad2.dpad_up) {    //
+            robot.lift.setPower(300);                         //
         } else robot.lift.setPower(0);
 
 //
@@ -254,13 +271,17 @@ public class Mechanum extends OpMode {
 
             telemetry.addData("", "Angle  %f", robot.getAngle());
 
-            telemetry.addData("", "Angle  %f", -gamepad2.left_stick_y);
-
 //        telemetry.addData("", "chain %d", robot.chain.getCurrentPosition());
 //
             telemetry.addData("", "Lift %d", robot.lift.getCurrentPosition());
 
             telemetry.addData("", "Linear %d", robot.linear.getCurrentPosition());
+
+            telemetry.addData("", "wrist %f", robot.wrist.getPosition());
+
+            telemetry.addData("", "elbow %f", robot.elbow.getPosition());
+
+            telemetry.addData("", "Left Claw %f   Right Claw %f", robot.leftClaw.getPosition(), robot.rightClaw.getPosition());
 
 //            telemetry.addData("", "Left Trigger %d", gamepad2.left_trigger);
 
@@ -271,8 +292,8 @@ public class Mechanum extends OpMode {
 
             //code taken from https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
             double facing = robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-            double y = -gamepad1.left_stick_y;
-            double x = gamepad1.left_stick_x;
+            double y = gamepad1.left_stick_y;
+            double x = -gamepad1.left_stick_x;
             double rx = -gamepad1.right_stick_x;
             if (gamepad1.options) {
                 robot.imu.resetYaw();

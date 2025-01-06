@@ -98,24 +98,25 @@ public class Blue_Left extends LinearOpMode {
         }
 
         telemetry.update();
+
+        robot.elbow.setPosition(0.2);
+
 //        robot.leftClaw.setPosition(1);
 //
 //        robot.rightClaw.setPosition(-0.6);
 //
 //        robot.wrist.setPosition(0);
 
-        steps.add(new StrafeForDistance(robot,20 , 1, 1, runtime, 5, -1, 0));
-//        steps.add(new StrafeForDistance(robot, 20, 1, 1, runtime, 5, 0.75, 1));
-//        steps.add(new MoveForDistance(robot, 43, 3, 4, runtime, 5, 1, 1));
-//        steps.add(new StrafeForDistance(robot, 24, 3, 6, runtime, 5, -0.5, 1));
-//        steps.add(new MoveForDistance(robot, 37, 5, 4, runtime, 5, -1, 1));
-//        steps.add(new MoveForDistance(robot, 37, 1, 3, runtime, 5, 1, 1));
-//        steps.add(new StrafeForDistance(robot, 4, 1,2 , runtime, 5, -0.5, 1));
-//        steps.add(new MoveForDistance(robot, 35, 3, 4, runtime, 5, -1, 1));
-//        steps.add(new StrafeForDistance(robot, 14, 1, 3, runtime, 5, 0.5, 1));
+        steps.add(new StrafeForDistance(robot,20 , 1, 1, runtime, 5, -0.5, 1));
+        steps.add(new StrafeForDistance(robot, 20, 1, 1, runtime, 5, 0.5, 1));
+        steps.add(new MoveForDistance(robot, 43, 3, 4, runtime, 5, 10, 1));
+        steps.add(new StrafeForDistance(robot, 24, 3, 6, runtime, 5, -0.5, 1));
+        steps.add(new MoveForDistance(robot, 37, 5, 4, runtime, 5, -1, 1));
+        steps.add(new MoveForDistance(robot, 37, 1, 3, runtime, 5, 1, 1));
+        steps.add(new StrafeForDistance(robot, 4, 1,2 , runtime, 5, -0.5, 1));
+        steps.add(new MoveForDistance(robot, 35, 3, 4, runtime, 5, -1, 1));
+        steps.add(new StrafeForDistance(robot, 14, 1, 3, runtime, 5, 0.5, 1));
 
-
-        //steps.add(new MoveForDistance(robot, 20, 5, 5, runtime, 5, 0.5, 1));
 
 //        if (propPos == 1) {
 //            steps.add(new MoveForDistance(robot, 3, 1, 1, runtime, 5, -0.5, 1));
