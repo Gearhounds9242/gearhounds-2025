@@ -27,6 +27,7 @@ public class Mechanum extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     private double shift = 1.0;
+    private double manual = 1.0;
 
     boolean Moving = false;
     boolean Chaining = false;
@@ -62,6 +63,8 @@ public class Mechanum extends OpMode {
         //This is the code that changes the color on the Dualshock 4
         gamepad1.setLedColor(17, 0, 17, 1000000000);
         gamepad2.setLedColor(0, 10, 10, 1000000000);
+        shift = 1.0;
+        manual = 0.0;
     }
 
 
@@ -93,7 +96,19 @@ public class Mechanum extends OpMode {
         }
 
         if (gamepad1.y) {
-            shift = 1;
+            shift = 1.0;
+        }
+
+
+        if (gamepad2.options && gamepad2.share && manual == 0) {
+            manual = 1.0;
+            gamepad2.setLedColor(100, 0, 0, 1000000000);
+            gamepad2.rumble(100);
+        }
+
+        if (gamepad2.options && gamepad2.share && manual == 1){
+            manual = 0.0;
+            gamepad2.setLedColor(0, 10, 10, 1000000000);
         }
 
 
@@ -136,20 +151,39 @@ public class Mechanum extends OpMode {
 
 
 
+//High basket preset
+        if (gamepad2.b && manual == 0.0) {
+
+        }
+//Low basket preset
+        if (gamepad2.a && manual == 0.0) {
+
+        }
+//High chamber preset
+        if (gamepad2.y && manual == 0.0) {
+
+        }
+//Low chamber preset
+        if (gamepad2.x && manual == 0.0){
+
+        }
+
+
+
 //This code controls the wrist, via the A and Y (X & Triangle) on the controller.
-        if (gamepad2.a) {
+        if (gamepad2.a && manual == 1.0) {
             robot.elbow.setPosition(0.8);
         }
-        else if (gamepad2.y) {
+        else if (gamepad2.y && manual == 1.0) {
             robot.elbow.setPosition(0.2);
         }
 
 
 
 //This code controls the wrist, via the B and X (Circle & Square) on the controller.
-        if (gamepad2.b) {
+        if (gamepad2.b && manual == 1.0) {
             robot.wrist.setPosition(1);
-        } else if (gamepad2.x) {
+        } else if (gamepad2.x && manual == 1.0) {
             robot.wrist.setPosition(0.2);
     }
 
@@ -163,7 +197,7 @@ public class Mechanum extends OpMode {
         } else if (gamepad2.share && gamepad2.dpad_down) {   // This code allows you to bypass the limits on the Linear Actuator using the Share button + d-pad up and down
             robot.linear.setPower(-300);                     //
         } else if (gamepad2.share && gamepad2.dpad_up) {     //
-            robot.linear.setPower(300);                      //\
+            robot.linear.setPower(300);                      //
 
         } else robot.linear.setPower(0);
 
@@ -282,6 +316,10 @@ public class Mechanum extends OpMode {
             telemetry.addData("", "elbow %f", robot.elbow.getPosition());
 
             telemetry.addData("", "Left Claw %f   Right Claw %f", robot.leftClaw.getPosition(), robot.rightClaw.getPosition());
+
+            telemetry.addData("", "Driver Speed %f", shift);
+
+            telemetry.addData("", "Manual Mode", manual);
 
 //            telemetry.addData("", "Left Trigger %d", gamepad2.left_trigger);
 
