@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Utilities.GearHoundsHardware;
 @TeleOp(name="Mechanum", group= "org/firstinspires/ftc/teamcode/TeleOp")
 
 /* This program is the robot's main TeleOp program which gets run
- * constistently every TeleOperated period. This allows for driver control
+ * consistently every TeleOperated period. This allows for driver control
  * of the drivetrain, and operator control of all other subsystems on the robot.*/
 
 public class Mechanum extends OpMode {
@@ -100,15 +100,24 @@ public class Mechanum extends OpMode {
         }
 
 
-        if (gamepad2.options && gamepad2.share && manual == 0) {
-            manual = 1.0;
-            gamepad2.setLedColor(100, 0, 0, 1000000000);
-            gamepad2.rumble(100);
+        if (gamepad2.options && gamepad2.share) {
+            manual = 1;
         }
 
-        if (gamepad2.options && gamepad2.share && manual == 1){
-            manual = 0.0;
+        if (gamepad2.dpad_up) {
+            manual = 0;
+        }
+
+
+        if (gamepad2.options && gamepad2.share && manual == 1) {
+            gamepad2.setLedColor(100, 0, 0, 1000000000);
+            gamepad2.rumble(100);
+
+        }
+
+        if (gamepad2.dpad_up && manual == 0){
             gamepad2.setLedColor(0, 10, 10, 1000000000);
+            gamepad2.rumble(50);
         }
 
 
@@ -157,7 +166,11 @@ public class Mechanum extends OpMode {
         }
 //Low basket preset
         if (gamepad2.a && manual == 0.0) {
-
+            robot.lift.setTargetPosition(-5000);
+            robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.lift.setPower(1);
+            robot.elbow.setPosition(0.8);
+            robot.wrist.setPosition(1.0);
         }
 //High chamber preset
         if (gamepad2.y && manual == 0.0) {
@@ -184,36 +197,44 @@ public class Mechanum extends OpMode {
         if (gamepad2.b && manual == 1.0) {
             robot.wrist.setPosition(1);
         } else if (gamepad2.x && manual == 1.0) {
-            robot.wrist.setPosition(0.2);
+            robot.wrist.setPosition(0.1);
     }
 
 
 
 //This code allows you to move the linear actuator in and out with limits and changeable speed
-            if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() < 5200) {  // 5030 is upper limit on Linear Actuator for future me
+        if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() < 5200) {  // 5030 is upper limit on Linear Actuator for future me
             robot.linear.setVelocity(-gamepad2.right_stick_y * 8000);
         } else if (gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() > 30 ) { // 740 is lower limit on Linear Actuator for future me
             robot.linear.setVelocity(-gamepad2.right_stick_y * 9000);
         } else if (gamepad2.share && gamepad2.dpad_down) {   // This code allows you to bypass the limits on the Linear Actuator using the Share button + d-pad up and down
-            robot.linear.setPower(-300);                     //
+            robot.linear.setPower(-1);                     //
         } else if (gamepad2.share && gamepad2.dpad_up) {     //
-            robot.linear.setPower(300);                      //
+            robot.linear.setPower(1);                      //
 
-        } else robot.linear.setPower(0);
+        } else {
+            robot.linear.setPower(0);
+        }
 
 
 
 
 //This code allows you to move the lift up and down with limits and changeable speed
-            if (-gamepad2.left_stick_y > 0 && robot.lift.getCurrentPosition() > -10000) {  // -5955 is upper limit on lift for future me
+        if (-gamepad2.left_stick_y > 0 && robot.lift.getCurrentPosition() > -10000) {  // -5955 is upper limit on lift for future me
             robot.lift.setVelocity(gamepad2.left_stick_y * 2000);
+            robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         } else if (-gamepad2.left_stick_y < 0 && robot.lift.getCurrentPosition() < -200) {
             robot.lift.setVelocity(gamepad2.left_stick_y * 2000);
+            robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }  else if (gamepad2.options && gamepad2.dpad_down) { // This code allows you to bypass the limits on the Lift using the Options button + d-pad up and down
-            robot.lift.setPower(-300);                        //
-        } else if (gamepad2.options && gamepad2.dpad_up) {    //
+            robot.lift.setPower(-300);
+            robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);//
+        } else if (gamepad2.options && gamepad2.dpad_up) {
+            robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);//
             robot.lift.setPower(300);                         //
-        } else robot.lift.setPower(0);
+        } else if (robot.lift.getMode() == DcMotor.RunMode.RUN_USING_ENCODER) {
+            robot.lift.setPower(0);
+    }
 
 //
 //        if (gamepad2.right_bumper)
