@@ -131,7 +131,7 @@ public class Mechanum extends OpMode {
         }
         telemetry.update();
 
-//This code allows you to reset the Linear Actuator by clicking in the left stick (L3) and Options
+//This code allows you to reset the Linear Actuator by clicking in the left stick (L3) and Option
         if (gamepad2.options && gamepad2.left_stick_button) {
             robot.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
