@@ -104,7 +104,7 @@ public class Mechanum extends OpMode {
             manual = 1;
         }
 
-        if (gamepad2.dpad_up) {
+        if (gamepad2.ps) {
             manual = 0;
         }
 
@@ -115,7 +115,7 @@ public class Mechanum extends OpMode {
 
         }
 
-        if (gamepad2.dpad_up && manual == 0){
+        if (gamepad2.ps && manual == 0){
             gamepad2.setLedColor(0, 10, 10, 1000000000);
             gamepad2.rumble(50);
         }
@@ -162,30 +162,47 @@ public class Mechanum extends OpMode {
 
 //High basket preset
         if (gamepad2.b && manual == 0.0) {
-
+            robot.lift.setTargetPosition(-8700);
+            robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.lift.setPower(1);
+            robot.elbow.setPosition(1);
+            robot.wrist.setPosition(1.0);
         }
 //Low basket preset
         if (gamepad2.a && manual == 0.0) {
             robot.lift.setTargetPosition(-5000);
             robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.lift.setPower(1);
-            robot.elbow.setPosition(0.8);
+            robot.elbow.setPosition(1);
             robot.wrist.setPosition(1.0);
         }
 //High chamber preset
         if (gamepad2.y && manual == 0.0) {
-
+            robot.lift.setTargetPosition(-8000);
+            robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.lift.setPower(1);
+            robot.elbow.setPosition(0.2);
+            robot.wrist.setPosition(0.15);
         }
 //Low chamber preset
         if (gamepad2.x && manual == 0.0){
+            robot.lift.setTargetPosition(-4000);
+            robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.lift.setPower(1);
+            robot.elbow.setPosition(0.2);
+            robot.wrist.setPosition(0.15);
+        }
 
+        if (gamepad2.dpad_down && manual == 0.0){
+            robot.elbow.setPosition(0.2);
+            robot.wrist.setPosition(0.5);
         }
 
 
 
 //This code controls the wrist, via the A and Y (X & Triangle) on the controller.
         if (gamepad2.a && manual == 1.0) {
-            robot.elbow.setPosition(0.8);
+            robot.elbow.setPosition(1);
         }
         else if (gamepad2.y && manual == 1.0) {
             robot.elbow.setPosition(0.2);
@@ -197,7 +214,7 @@ public class Mechanum extends OpMode {
         if (gamepad2.b && manual == 1.0) {
             robot.wrist.setPosition(1);
         } else if (gamepad2.x && manual == 1.0) {
-            robot.wrist.setPosition(0.1);
+            robot.wrist.setPosition(0.15);
     }
 
 
