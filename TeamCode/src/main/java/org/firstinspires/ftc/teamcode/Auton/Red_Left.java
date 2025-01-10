@@ -40,6 +40,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.AutonCommands.MoveForDistance;
 import org.firstinspires.ftc.teamcode.AutonCommands.SetClaws;
 import org.firstinspires.ftc.teamcode.AutonCommands.SetWrist;
+import org.firstinspires.ftc.teamcode.AutonCommands.SlideToPosition;
+import org.firstinspires.ftc.teamcode.AutonCommands.SpinToPosition;
 import org.firstinspires.ftc.teamcode.AutonCommands.StrafeForDistance;
 import org.firstinspires.ftc.teamcode.AutonCommands.TurnByAngle;
 import org.firstinspires.ftc.teamcode.AutonCommands.WaitForTime;
@@ -91,7 +93,6 @@ public class Red_Left extends LinearOpMode {
         robot.init(hardwareMap);
         robot.imu.resetYaw();
         List<Command> steps = new ArrayList<>();
-
         int step = 0;
         while  (!isStarted()) {
             telemetry.update();
@@ -104,15 +105,25 @@ public class Red_Left extends LinearOpMode {
 //
 //        robot.wrist.setPosition(0);
 
-        steps.add(new StrafeForDistance(robot,20 , 1, 1, runtime, 5, -0.5, 1));
-        steps.add(new StrafeForDistance(robot, 20, 1, 1, runtime, 5, 0.5, 1));
-        steps.add(new MoveForDistance(robot, 43, 3, 4, runtime, 5, 10, 1));
-        steps.add(new StrafeForDistance(robot, 24, 3, 6, runtime, 5, -0.5, 1));
-        steps.add(new MoveForDistance(robot, 37, 5, 4, runtime, 5, -1, 1));
-        steps.add(new MoveForDistance(robot, 37, 1, 3, runtime, 5, 1, 1));
-        steps.add(new StrafeForDistance(robot, 4, 1,2 , runtime, 5, -0.5, 1));
-        steps.add(new MoveForDistance(robot, 35, 3, 4, runtime, 5, -1, 1));
-        steps.add(new StrafeForDistance(robot, 14, 1, 3, runtime, 5, 0.5, 1));
+
+        steps.add(new StrafeForDistance(robot,0.3 , 0, 0, runtime, 5, -0.5, 1));
+        steps.add(new SlideToPosition(robot, runtime, -9700, 1, 15));
+        steps.add(new WaitForTime(robot, runtime, 1));
+        robot.elbow.setPosition(0.8);
+        robot.wrist.setPosition(1.0);
+        steps.add(new SpinToPosition (robot, runtime, 3050, 1, 5));
+        steps.add(new MoveForDistance(robot, 8, 4, 4, runtime, 5, -0.5, 1));
+        steps.add(new SetClaws(robot, runtime, 0.1, 0.4, 0.4));
+
+//        steps.add(new StrafeForDistance(robot,20 , 1, 1, runtime, 5, 0.5, 1));
+//        steps.add(new StrafeForDistance(robot, 20, 1, 1, runtime, 5, -0.5, 1));
+//        steps.add(new MoveForDistance(robot, 43, 3, 4, runtime, 5, -0.5, 1));
+//        steps.add(new StrafeForDistance(robot, 24, 3, 6, runtime, 5, 0.5, 1));
+//        steps.add(new MoveForDistance(robot, 37, 5, 4, runtime, 5, 1, 0.5));
+//        steps.add(new MoveForDistance(robot, 37, 1, 3, runtime, 5, -1, 0.5));
+//        steps.add(new StrafeForDistance(robot, 4, 1,2 , runtime, 5, 0.5, 1));
+//        steps.add(new MoveForDistance(robot, 35, 3, 4, runtime, 5, 0.5, 1));
+//        steps.add(new StrafeForDistance(robot, 14, 1, 3, runtime, 5, -0.5, 1));
 
 
         //steps.add(new MoveForDistance(robot, 20, 5, 5, runtime, 5, 0.5, 1));
