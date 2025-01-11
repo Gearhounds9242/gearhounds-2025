@@ -103,7 +103,7 @@ public class Red_Left extends LinearOpMode {
 //
 //        robot.rightClaw.setPosition(-0.6);
 //
-//        robot.wrist.setPosition(0);
+//        robot.wrist.setPosition(0)
 
 
         steps.add(new StrafeForDistance(robot,0.3 , 0, 0, runtime, 5, -0.5, 1));
