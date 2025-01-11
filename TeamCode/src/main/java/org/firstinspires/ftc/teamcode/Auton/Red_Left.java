@@ -113,7 +113,13 @@ public class Red_Left extends LinearOpMode {
         robot.wrist.setPosition(1.0);
         steps.add(new SpinToPosition (robot, runtime, 3050, 1, 5));
         steps.add(new MoveForDistance(robot, 8, 4, 4, runtime, 5, -0.5, 1));
-        steps.add(new SetClaws(robot, runtime, 0.1, 0.4, 0.4));
+        steps.add(new SetClaws(robot, runtime, 0.1, 0.5, 1));
+        steps.add(new SetWrist(robot, runtime, 0.5, 0.7));
+        steps.add(new SpinToPosition (robot, runtime, 0, 1, 5));
+        steps.add(new SlideToPosition(robot, runtime, 0, 1, 15));
+        steps.add(new StrafeForDistance(robot,25 , 1, 1, runtime, 5, -1, 1));
+        steps.add(new TurnByAngle(robot, runtime, 180, 1, 5));
+        steps.add(new MoveForDistance(robot, 10, 3, 3, runtime, 5, 1, 1));
 
 //        steps.add(new StrafeForDistance(robot,20 , 1, 1, runtime, 5, 0.5, 1));
 //        steps.add(new StrafeForDistance(robot, 20, 1, 1, runtime, 5, -0.5, 1));
