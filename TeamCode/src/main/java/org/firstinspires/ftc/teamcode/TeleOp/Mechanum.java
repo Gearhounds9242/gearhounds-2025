@@ -154,7 +154,7 @@ public class Mechanum extends OpMode {
             robot.leftClaw.setPosition(0.4);
             robot.rightClaw.setPosition(0.4);
         } else if (gamepad2.right_bumper) {
-            robot.leftClaw.setPosition(0.2);
+            robot.leftClaw.setPosition(0.15);
             robot.rightClaw.setPosition(1);
         }
 
@@ -162,7 +162,7 @@ public class Mechanum extends OpMode {
 
 //High basket preset
         if (gamepad2.b && manual == 0.0) {
-            robot.lift.setTargetPosition(-8700);
+            robot.lift.setTargetPosition(-9700);
             robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.lift.setPower(1);
             robot.elbow.setPosition(1);
@@ -195,8 +195,8 @@ public class Mechanum extends OpMode {
 
         // Digging prese
         if (gamepad2.dpad_down && manual == 0.0){
-            robot.elbow.setPosition(0.2);
-            robot.wrist.setPosition(0.25);
+            robot.elbow.setPosition(0.385);
+            robot.wrist.setPosition(0.23);
         }
 
         //all Grab Prese
