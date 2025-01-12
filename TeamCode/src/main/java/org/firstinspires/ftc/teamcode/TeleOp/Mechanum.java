@@ -165,7 +165,7 @@ public class Mechanum extends OpMode {
             robot.lift.setTargetPosition(-8700);
             robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.lift.setPower(1);
-            robot.elbow.setPosition(0.8);
+            robot.elbow.setPosition(1);
             robot.wrist.setPosition(1.0);
         }
 //Low basket preset
@@ -181,21 +181,31 @@ public class Mechanum extends OpMode {
             robot.lift.setTargetPosition(-8000);
             robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.lift.setPower(1);
-            robot.elbow.setPosition(0.2);
-            robot.wrist.setPosition(0.25);
+            robot.elbow.setPosition(0.385);
+            robot.wrist.setPosition(0.23);
         }
 //Low chamber preset
         if (gamepad2.x && manual == 0.0){
             robot.lift.setTargetPosition(-4000);
             robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.lift.setPower(1);
+            robot.elbow.setPosition(0.385);
+            robot.wrist.setPosition(0.23);
+        }
+
+        // Digging prese
+        if (gamepad2.dpad_down && manual == 0.0){
             robot.elbow.setPosition(0.2);
             robot.wrist.setPosition(0.25);
         }
 
-        if (gamepad2.dpad_down && manual == 0.0){
-            robot.elbow.setPosition(0.2);
-            robot.wrist.setPosition(0.25);
+        //all Grab Prese
+        if (gamepad2.dpad_right && manual == 0.0){
+            robot.lift.setTargetPosition(-3000);
+            robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.lift.setPower(1);
+            robot.elbow.setPosition(0.385);
+            robot.wrist.setPosition(0.23);
         }
 
 
