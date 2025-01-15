@@ -77,7 +77,7 @@ import java.util.List;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name = "Blue_Left")
+@Autonomous(name = "Right")
 public class Right extends LinearOpMode {
     private GearHoundsHardware robot = new GearHoundsHardware();
     //Create elapsed time variable and an instance of elapsed time
@@ -108,7 +108,23 @@ public class Right extends LinearOpMode {
 //        robot.wrist.setPosition(0);
 
 
-        steps.add(new StrafeForDistance(robot, 20, 1, 1, runtime, 5, -0.5, 1));
+
+
+
+
+        steps.add(new MoveForDistance(robot, 10, 1, 3, runtime, 5, -0.75, 1));
+        steps.add(new WaitForTime(robot, runtime, 1));
+        steps.add(new MoveForDistance(robot, 3, 1, 0.5, runtime, 5, 1, 1));
+        steps.add(new StrafeForDistance(robot,37 , 13, 6, runtime, 5, -0.75, 1));
+        steps.add(new MoveForDistance(robot, 3,2 , 1, runtime, 5, 1, 1));
+        steps.add(new TurnByAngle (robot, runtime, 175, -0.8, 1));
+        steps.add(new WaitForTime(robot, runtime, 2));
+        steps.add(new MoveForDistance(robot, 6,1 , 2, runtime, 5, -1, 1));
+        steps.add(new WaitForTime(robot, runtime, 1));
+        steps.add(new MoveForDistance(robot, 4,2 , 1, runtime, 5, 1, 1));
+        steps.add(new TurnByAngle (robot, runtime, 1, -0.8, 1));
+        steps.add(new StrafeForDistance(robot,37 , 13, 6, runtime, 5, 0.75, 1));
+        steps.add(new MoveForDistance(robot, 9, 3, 1, runtime, 5, -0.75, 1));
 
 
 //        if (propPos == 1) {
