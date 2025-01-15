@@ -27,14 +27,14 @@ public class GearHoundsHardware extends Hardware {
 //    public DcMotorEx hanger;
 //    public Servo launcher;
 //
-    public Servo leftClaw;
-    public Servo rightClaw;
-    public Servo elbow;
-//    public DcMotorEx intake;
-    public DcMotorEx lift;
-    public Servo wrist;
-//    public DcMotor chain;
-    public DcMotorEx linear;
+//    public Servo leftClaw;
+//    public Servo rightClaw;
+//    public Servo elbow;
+////    public DcMotorEx intake;
+//    public DcMotorEx lift;
+//    public Servo wrist;
+////    public DcMotor chain;
+//    public DcMotorEx linear;
 
     public static final int READ_PERIOD = 1;
     //public HuskyLens huskyLens;
@@ -68,25 +68,25 @@ public class GearHoundsHardware extends Hardware {
         // Define and Initialize Motors for drivetrain
         //huskyLens = robotMap.get(HuskyLens.class, "huskyLens");
 
-//        launcher = robotMap.get(Servo.class, "launcher");
-        leftClaw = robotMap.get(Servo.class, "left_claw");
-        rightClaw = robotMap.get(Servo.class, "right_claw");
-        elbow = robotMap.get(Servo.class, "elbow");
-//        hanger = robotMap.get(DcMotorEx.class, "hanger");
-        wrist = robotMap.get(Servo.class, "wrist");
-        lift = robotMap.get(DcMotorEx.class, "lift");
-//        intake = robotMap.get(DcMotorEx.class, "intake");
+////        launcher = robotMap.get(Servo.class, "launcher");
+//        leftClaw = robotMap.get(Servo.class, "left_claw");
+//        rightClaw = robotMap.get(Servo.class, "right_claw");
+//        elbow = robotMap.get(Servo.class, "elbow");
+////        hanger = robotMap.get(DcMotorEx.class, "hanger");
+//        wrist = robotMap.get(Servo.class, "wrist");
+//        lift = robotMap.get(DcMotorEx.class, "lift");
+////        intake = robotMap.get(DcMotorEx.class, "intake");
         leftFront  = robotMap.get(DcMotorEx.class, "front_left");
         rightFront = robotMap.get(DcMotorEx.class, "front_right");
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        linear = robotMap.get(DcMotorEx.class, "linear");
-//        chain = robotMap.get(DcMotor.class, "chain");
-        linear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        lift.setDirection(DcMotorSimple.Direction.REVERSE);
+//        linear = robotMap.get(DcMotorEx.class, "linear");
+////        chain = robotMap.get(DcMotor.class, "chain");
+//        linear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        lift.setDirection(DcMotorSimple.Direction.REVERSE);
         //leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack  = robotMap.get(DcMotorEx.class, "back_left");
@@ -97,10 +97,10 @@ public class GearHoundsHardware extends Hardware {
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        chain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        chain.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        linear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        linear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBack.setDirection(DcMotor.Direction.FORWARD);
 //        huskyLens = robotMap.get(HuskyLens.class, "huskyLens");
 
