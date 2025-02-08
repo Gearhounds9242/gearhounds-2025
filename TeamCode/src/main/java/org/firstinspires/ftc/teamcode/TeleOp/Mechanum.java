@@ -27,10 +27,19 @@ public class Mechanum extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     private double shift = 1.0;
-//    private double manual = 1.0;
+    private double P1xTime = -10;
+    private double P1aTime = -10;
+    private double P1lpadTime = -10;
+    private double P1rpadTime = -10;
+
+
+
 
     boolean Moving = false;
     boolean Chaining = false;
+    boolean Handing = false;
+    boolean ClawOpen = false;
+    boolean ClawSideways = false;
 
     @Override
     public void init() {
@@ -64,7 +73,6 @@ public class Mechanum extends OpMode {
         gamepad1.setLedColor(17, 0, 17, 1000000000);
         gamepad2.setLedColor(0, 10, 10, 1000000000);
         shift = 1.0;
-//        manual = 0.0;
     }
 
 
@@ -100,169 +108,113 @@ public class Mechanum extends OpMode {
         }
 
 
-//        if (gamepad2.options && gamepad2.share) {
-//            manual = 1;
-//        }
-//
-//        if (gamepad2.ps) {
-//            manual = 0;
-//        }
+//This code allows you to move the linear actuator in and out with limits and changeable speed
+        if (gamepad1.dpad_down && robot.linear.getCurrentPosition() < -200) {  // 5030 is upper limit on Linear Actuator for future me
+            robot.linear.setVelocity(1000000);
+        } else if (gamepad1.dpad_up && robot.linear.getCurrentPosition() > -4150) { // 740 is lower limit on Linear Actuator for future me
+            robot.linear.setVelocity(-1000000);
+        } else {
+            robot.linear.setPower(0);
+        }
 
 
-//        if (gamepad2.options && gamepad2.share && manual == 1) {
-//            gamepad2.setLedColor(100, 0, 0, 1000000000);
-//            gamepad2.rumble(100);
-//
-//        }
-//
-//        if (gamepad2.ps && manual == 0){
-//            gamepad2.setLedColor(0, 10, 10, 1000000000);
-//            gamepad2.rumble(50);
-//        }
+        if (gamepad1.right_trigger > 0.8) {
+            robot.claw.setPosition(0.67);
+            ClawOpen = false;
+        }
+        if (gamepad1.left_trigger > 0.8) {
+            robot.claw.setPosition(0.624);
+            ClawOpen = true;
+        }
+
+        if (gamepad1.dpad_left) {
+            P1lpadTime = runtime.seconds();
+        }
+            if (((runtime.seconds() - P1lpadTime) < 0.03) && ClawOpen == true) {
+                robot.claw.setPosition(0.67);
+            } else if ((runtime.seconds() - P1lpadTime) < 0.04) {
+                robot.rotate.setPosition(0.8);
+                ClawOpen = false;
+                ClawSideways = true;
+            }
+
+        if (gamepad1.dpad_right) {
+            P1rpadTime = runtime.seconds();
+        }
+            if (((runtime.seconds() - P1rpadTime) < 0.05) && ClawOpen == true) {
+                robot.claw.setPosition(0.67);
+            } else if ((runtime.seconds() - P1rpadTime) < 0.06) {
+                robot.rotate.setPosition(0.485);
+                ClawOpen = false;
+                ClawSideways = false;
+            }
+
+        if (gamepad1.x) {
+            P1xTime = runtime.seconds();
+        }
+
+            if (((runtime.seconds() - P1xTime) < 1) && ClawSideways == false) {
+                robot.rotate.setPosition(0.485);
+                robot.wrist.setPosition(0.845);
+            } else if (((runtime.seconds() - P1xTime) < 1.05) && ClawSideways == false) {
+                robot.claw.setPosition(0.659);
+                ClawSideways = false;
+            }
+
+            if (((runtime.seconds() - P1xTime) < 0.2) && ClawSideways == true) {
+                robot.claw.setPosition(0.67);
+            } else if (((runtime.seconds() - P1xTime) < 1.1) && ClawSideways == true) {
+                robot.rotate.setPosition(0.485);
+                robot.wrist.setPosition(0.845);
+                robot.claw.setPosition(0.659);
+                ClawSideways = false;
+            }
 
 
+        if (gamepad1.a) {
+            P1aTime = runtime.seconds();
+        }
 
-//This code allows you to reset the Linear Actuator by clicking in the right stick (R3) and Options
-//        if (gamepad2.options && gamepad2.right_stick_button) {
-//            robot.linear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//            robot.linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//            gamepad2.rumbleBlips(2);
-//            telemetry.addLine("Resetting Linear Encoder");
-//        }
-        telemetry.update();
-
-//This code allows you to reset the Linear Actuator by clicking in the left stick (L3) and Option
-//        if (gamepad2.options && gamepad2.left_stick_button) {
-//            robot.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//            robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//            gamepad2.rumbleBlips(1);
-//            telemetry.addLine("Resetting Lift Encoder");
-//        }
-        telemetry.update();
-
-
-
-//        if (gamepad2.left_trigger != 0) {
-//            robot.claw.setPower(gamepad2.left_trigger*.5);
-//        } else if (gamepad2.right_trigger != 0) {
-//            robot.claw.setPower(-gamepad2.right_trigger*.5);
-//        } else robot.claw.setPower(0);
-
-
-//This is the code that lets the Operator to open and close the claw, via the left and right bumpers (L1 & R1) on the controller.
-//        if (gamepad2.left_bumper) {
-//            robot.leftClaw.setPosition(0.4);
-//            robot.rightClaw.setPosition(0.4);
-//        } else if (gamepad2.right_bumper) {
-//            robot.leftClaw.setPosition(0.15);
-//            robot.rightClaw.setPosition(1);
-//        }
-
-
-
-//High basket preset
-//        if (gamepad2.b && manual == 0.0) {
-//            robot.lift.setTargetPosition(-9700);
-//            robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//            robot.lift.setPower(1);
-//            robot.elbow.setPosition(1);
-//            robot.wrist.setPosition(1.0);
-//        }
-//Low basket preset
-//        if (gamepad2.a && manual == 0.0) {
-//            robot.lift.setTargetPosition(-5000);
-//            robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//            robot.lift.setPower(1);
-//            robot.elbow.setPosition(1);
-//            robot.wrist.setPosition(1.0);
-//        }
-//High chamber preset
-//        if (gamepad2.y && manual == 0.0) {
-//            robot.lift.setTargetPosition(-8000);
-//            robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//            robot.lift.setPower(1);
-//            robot.elbow.setPosition(0.385);
-//            robot.wrist.setPosition(0.23);
-//        }
-//Low chamber preset
-//        if (gamepad2.x && manual == 0.0){
-//            robot.lift.setTargetPosition(-4000);
-//            robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//            robot.lift.setPower(1);
-//            robot.elbow.setPosition(0.385);
-//            robot.wrist.setPosition(0.23);
-//        }
-//
-//        // Digging prese
-//        if (gamepad2.dpad_down && manual == 0.0){
-//            robot.elbow.setPosition(0.385);
-//            robot.wrist.setPosition(0.23);
-//        }
-
-        //all Grab Prese
-//        if (gamepad2.dpad_right && manual == 0.0){
-//            robot.lift.setTargetPosition(-3000);
-//            robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//            robot.lift.setPower(1);
-//            robot.elbow.setPosition(0.385);
-//            robot.wrist.setPosition(0.23);
-//        }
-//
-//
-//
-////This code controls the wrist, via the A and Y (X & Triangle) on the controller.
-//        if (gamepad2.a && manual == 1.0) {
-//            robot.elbow.setPosition(1);
-//        }
-//        else if (gamepad2.y && manual == 1.0) {
-//            robot.elbow.setPosition(0.2);
-//        }
-
-
-
-//This code controls the wrist, via the B and X (Circle & Square) on the controller.
-//        if (gamepad2.b && manual == 1.0) {
-//            robot.wrist.setPosition(1);
-//        } else if (gamepad2.x && manual == 1.0) {
-//            robot.wrist.setPosition(0.15);
-//    }
-//
-//
-//
-////This code allows you to move the linear actuator in and out with limits and changeable speed
-//        if (-gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() < 5200) {  // 5030 is upper limit on Linear Actuator for future me
-//            robot.linear.setVelocity(-gamepad2.right_stick_y * 8000);
-//        } else if (gamepad2.right_stick_y > 0 && robot.linear.getCurrentPosition() > 30 ) { // 740 is lower limit on Linear Actuator for future me
-//            robot.linear.setVelocity(-gamepad2.right_stick_y * 9000);
-//        } else if (gamepad2.share && gamepad2.dpad_down) {   // This code allows you to bypass the limits on the Linear Actuator using the Share button + d-pad up and down
-//            robot.linear.setPower(-1);                     //
-//        } else if (gamepad2.share && gamepad2.dpad_up) {     //
-//            robot.linear.setPower(1);                      //
-//
-//        } else {
-//            robot.linear.setPower(0);
-//        }
-
-
-
+            if ((runtime.seconds() - P1aTime) < 1) {
+                robot.rotate.setPosition(0.485);
+                robot.wrist.setPosition(0);
+                robot.claw.setPosition(0.67);
+            } else if ((runtime.seconds() - P1aTime) < 1.05) {
+                robot.claw.setPosition(0.623);
+                ClawOpen = true;
+            }
 
 //This code allows you to move the lift up and down with limits and changeable speed
-//        if (-gamepad2.left_stick_y > 0 && robot.lift.getCurrentPosition() > -10000) {  // -5955 is upper limit on lift for future me
-//            robot.lift.setVelocity(gamepad2.left_stick_y * 2000);
-//            robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        } else if (-gamepad2.left_stick_y < 0 && robot.lift.getCurrentPosition() < -200) {
-//            robot.lift.setVelocity(gamepad2.left_stick_y * 2000);
-//            robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        }  else if (gamepad2.options && gamepad2.dpad_down) { // This code allows you to bypass the limits on the Lift using the Options button + d-pad up and down
-//            robot.lift.setPower(-300);
-//            robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);//
-//        } else if (gamepad2.options && gamepad2.dpad_up) {
-//            robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);//
-//            robot.lift.setPower(300);                         //
-//        } else if (robot.lift.getMode() == DcMotor.RunMode.RUN_USING_ENCODER) {
-//            robot.lift.setPower(0);
-//    }
+            if (-gamepad2.left_stick_y > 0 && robot.leftLift.getCurrentPosition() > -4000) {  // -5955 is upper limit on lift for future me
+                robot.leftLift.setVelocity(gamepad2.left_stick_y * 2000);
+                robot.rightLift.setVelocity(gamepad2.left_stick_y * 2000);
+            } else if (-gamepad2.left_stick_y < 0 && robot.leftLift.getCurrentPosition() < 10) {
+                robot.leftLift.setVelocity(gamepad2.left_stick_y * 2000);
+                robot.rightLift.setVelocity(gamepad2.left_stick_y * 2000);
+            } else robot.leftLift.setPower(0);
+                   robot.rightLift.setPower(0);
 
+
+            if (gamepad2.dpad_down){
+                robot.arm.setVelocity(-10000);
+            } else if (gamepad2.dpad_up){
+                robot.arm.setVelocity(10000);
+            } else robot.arm.setVelocity(0);
+
+            if (gamepad2.ps){
+                robot.UpClawL.setPosition(0);
+                robot.UpClawR.setPosition(0);
+            }
+
+            if (gamepad2.left_bumper){
+                robot.UpClawL.setPosition(0);
+                robot.UpClawR.setPosition(0.65);
+            }
+
+            if (gamepad2.right_bumper){
+                robot.UpClawL.setPosition(0.28);
+                robot.UpClawR.setPosition(0.3);
+            }
 //
 //        if (gamepad2.right_bumper)
 //            robot.claw.setPosition(.5);
@@ -353,11 +305,15 @@ public class Mechanum extends OpMode {
 
             telemetry.addData("", "Angle  %f", robot.getAngle());
 
+            telemetry.addData("", "Linear %d", robot.linear.getCurrentPosition());
+
+
 //        telemetry.addData("", "chain %d", robot.chain.getCurrentPosition());
 //
-//            telemetry.addData("", "Lift %d", robot.lift.getCurrentPosition());
+            telemetry.addData("", "Left Lift %d  Right Lift %d", robot.leftLift.getCurrentPosition(), robot.rightLift.getCurrentPosition());
 //
-//            telemetry.addData("", "Linear %d", robot.linear.getCurrentPosition());
+
+
 //
 //            telemetry.addData("", "wrist %f", robot.wrist.getPosition());
 //
@@ -384,7 +340,6 @@ public class Mechanum extends OpMode {
             if (gamepad1.options) {
                 robot.imu.resetYaw();
             }
-
 
 
 //        public void drive_update() {
