@@ -185,20 +185,24 @@ public class Mechanum extends OpMode {
             }
 
 //This code allows you to move the lift up and down with limits and changeable speed
-            if (-gamepad2.left_stick_y > 0 && robot.leftLift.getCurrentPosition() > -4000) {  // -5955 is upper limit on lift for future me
+            if (-gamepad2.left_stick_y > 0 && robot.leftLift.getCurrentPosition() > -3500) {  // -5955 is upper limit on lift for future me
                 robot.leftLift.setVelocity(gamepad2.left_stick_y * 2000);
                 robot.rightLift.setVelocity(gamepad2.left_stick_y * 2000);
-            } else if (-gamepad2.left_stick_y < 0 && robot.leftLift.getCurrentPosition() < 10) {
+                robot.leftLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.rightLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            } else if (-gamepad2.left_stick_y < 0 && robot.leftLift.getCurrentPosition() < 1) {
                 robot.leftLift.setVelocity(gamepad2.left_stick_y * 2000);
                 robot.rightLift.setVelocity(gamepad2.left_stick_y * 2000);
+                robot.leftLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.rightLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             } else robot.leftLift.setPower(0);
                    robot.rightLift.setPower(0);
 
 
             if (gamepad2.dpad_down){
-                robot.arm.setVelocity(-10000);
+                robot.arm.setVelocity(-500);
             } else if (gamepad2.dpad_up){
-                robot.arm.setVelocity(10000);
+                robot.arm.setVelocity(500);
             } else robot.arm.setVelocity(0);
 
             if (gamepad2.ps){
@@ -214,6 +218,15 @@ public class Mechanum extends OpMode {
             if (gamepad2.right_bumper){
                 robot.UpClawL.setPosition(0.28);
                 robot.UpClawR.setPosition(0.3);
+            }
+
+            if (gamepad2.b){
+                robot.leftLift.setTargetPosition(-3500);
+                robot.rightLift.setTargetPosition(-3500);
+                robot.leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.leftLift.setPower(0.2);
+                robot.rightLift.setPower(0.2);
             }
 //
 //        if (gamepad2.right_bumper)
