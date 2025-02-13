@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Utilities;
 
 //import com.qualcomm.hardware.bosch.BNO055IMU i
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -33,6 +34,7 @@ public class GearHoundsHardware extends Hardware {
     public Servo wrist;
     public ServoArm UpClawL;
     public Servo UpClawR;
+    public RevBlinkinLedDriver blinkin;
 
     public static final int READ_PERIOD = 1;
     //public HuskyLens huskyLens;
@@ -99,21 +101,20 @@ public class GearHoundsHardware extends Hardware {
 
         leftLift = robotMap.get(DcMotorEx.class, "left_lift");
         leftLift.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         rightLift = robotMap.get(DcMotorEx.class, "right_lift");
         rightLift.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         arm = robotMap.get(DcMotorEx.class, "arm");
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        blinkin = robotMap.get(RevBlinkinLedDriver.class, "blinkin");
+        blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
         //leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //        huskyLens = robotMap.get(HuskyLens.class, "huskyLens");

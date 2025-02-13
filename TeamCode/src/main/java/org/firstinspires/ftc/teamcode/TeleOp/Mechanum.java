@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
@@ -35,10 +36,13 @@ public class Mechanum extends OpMode {
     private double P1lpadTime = -10;
     private double P1rpadTime = -10;
     public double LiftAverage = 0;
-    public static double LiftHoldPower = -8;
+    public static double LiftHoldPower = 0;
     public static double LiftThreshold = -15;
     public static double LiftDownLimmit = -75;
+    public static double LiftVelocity = 5000;
     public FtcDashboard dashboard;
+    private boolean isRedLED = true;  // Tracks current LED state
+    private double lastXPressTime = -1;  // For button debouncing
 
 
 
@@ -67,6 +71,16 @@ public class Mechanum extends OpMode {
     public void init_loop() {
         telemetry.addLine("Hello Linval!");
         telemetry.update();
+        if (gamepad2.x && (runtime.seconds() - lastXPressTime > 0.25)) {  // Debounce the button press
+            lastXPressTime = runtime.seconds();
+            isRedLED = !isRedLED;  // Toggle the state
+
+            if (isRedLED) {
+                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+            } else {
+                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
+            }
+        }
     }
 
 
@@ -103,6 +117,8 @@ public class Mechanum extends OpMode {
         if (gamepad1.left_bumper) {
             shift = 0.3;
         }
+
+
 
         // Send data to Dashboard
         TelemetryPacket packet = new TelemetryPacket();
@@ -189,21 +205,52 @@ public class Mechanum extends OpMode {
             robot.wrist.setPosition(0.4225);
         }
 //This code allows you to move the lift up and down with limits and changeable speed
-            if (-gamepad2.left_stick_y > 0 && LiftAverage > -3500) {  // -5955 is upper limit on lift for future me
-                robot.leftLift.setVelocity(gamepad2.left_stick_y * 2000);
-                robot.rightLift.setVelocity(gamepad2.left_stick_y * 2000);
-                LiftMoving = true;
-            } else if (-gamepad2.left_stick_y < 0 && LiftAverage < LiftDownLimmit) {
-                robot.leftLift.setVelocity(gamepad2.left_stick_y * 2000);
-                robot.rightLift.setVelocity(gamepad2.left_stick_y * 2000);
-                LiftMoving = true;
-            }else LiftMoving = false;
-            if(LiftAverage < LiftThreshold && LiftMoving == false){
-                robot.leftLift.setVelocity(LiftHoldPower);
-                robot.rightLift.setVelocity(LiftHoldPower);
+        if (-gamepad2.left_stick_y > 0 && LiftAverage > -3500) {  // -5955 is upper limit on lift for future me
+            robot.leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.leftLift.setPower(gamepad2.left_stick_y);
+            robot.rightLift.setPower(gamepad2.left_stick_y);
+            LiftMoving = true;
+        } else if (-gamepad2.left_stick_y < 0 && LiftAverage < LiftDownLimmit) {
+            robot.leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.leftLift.setPower(gamepad2.left_stick_y);
+            robot.rightLift.setPower(gamepad2.left_stick_y);
+            LiftMoving = true;
+        } else if (LiftAverage > -5) {  // At bottom
+                robot.leftLift.setPower(0);
+                robot.rightLift.setPower(0);
+        } else {  // Engage brake
+                robot.leftLift.setTargetPosition(robot.leftLift.getCurrentPosition());
+                robot.rightLift.setTargetPosition(robot.rightLift.getCurrentPosition());
+                robot.leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.leftLift.setPower(LiftHoldPower);
+                robot.rightLift.setPower(LiftHoldPower);
             }
-            else robot.leftLift.setPower(0);
-                 robot.rightLift.setPower(0);
+
+//            if (LiftAverage < LiftThreshold && LiftMoving == false){
+//                robot.leftLift.setVelocity(LiftHoldPower);
+//                robot.rightLift.setVelocity(LiftHoldPower);
+//            }
+//            else robot.leftLift.setPower(0);
+//                 robot.rightLift.setPower(0);
+
+
+
+////This code allows you to move the lift up and down with limits and changeable speed
+//        if (-gamepad2.left_stick_y > 0 && LiftAverage > -3500) {  // -5955 is upper limit on lift for future me
+//            robot.leftLift.setVelocity(gamepad2.left_stick_y * LiftVelocity);
+//            robot.rightLift.setVelocity(gamepad2.left_stick_y * LiftVelocity);
+//            LiftMoving = true;
+//        } else if (-gamepad2.left_stick_y < 0 && LiftAverage < LiftDownLimmit) {
+//            robot.leftLift.setVelocity(gamepad2.left_stick_y * LiftVelocity);
+//            robot.rightLift.setVelocity(gamepad2.left_stick_y * LiftVelocity);
+//            LiftMoving = true;
+//        }else LiftMoving = false;
+
+
+
 
 
 
@@ -477,6 +524,8 @@ public class Mechanum extends OpMode {
             robot.rightFront.setPower(0);
             robot.leftBack.setPower(0);
             robot.rightBack.setPower(0);
+            robot.leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //            robot.lift.setPower(0);
             //robot.spinner.setPower(0);
             //robot.claw.setPower(0);
