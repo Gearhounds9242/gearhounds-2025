@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Utilities;
 //import com.qualcomm.hardware.bosch.BNO055IMU i
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -35,6 +36,7 @@ public class GearHoundsHardware extends Hardware {
     public ServoArm UpClawL;
     public Servo UpClawR;
     public RevBlinkinLedDriver blinkin;
+    public AnalogInput ranger;
 
     public static final int READ_PERIOD = 1;
     //public HuskyLens huskyLens;
@@ -73,6 +75,8 @@ public class GearHoundsHardware extends Hardware {
         wrist = robotMap.get(Servo.class,"wrist");
         UpClawL = new ServoArm(robotMap.get(Servo.class,"up_claw_left"));
         UpClawR = robotMap.get(Servo.class,"up_claw_right");
+
+        ranger = robotMap.get(AnalogInput.class, "ranger");
 
         leftFront  = robotMap.get(DcMotorEx.class, "front_left");
         leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -160,6 +164,12 @@ public class GearHoundsHardware extends Hardware {
         lastAngles = angles;
         return globalAngle;
     }
+
+    public double getDistance (AnalogInput sens) {
+        return (sens.getVoltage() * 48.7) -4.9;
+    }
+
+    public double clamp( double x, double min, double max) {return Math.max(min,Math.min(max,x));}
 //
 //    public void resetAngle()
 //    {

@@ -118,7 +118,8 @@ public class Mechanum extends OpMode {
             shift = 0.3;
         }
 
-
+// grabbing turning voltage into inchs
+        double range = (robot.ranger.getVoltage() * 48.7) - 4.9;
 
         // Send data to Dashboard
         TelemetryPacket packet = new TelemetryPacket();
@@ -417,6 +418,7 @@ public class Mechanum extends OpMode {
 
             telemetry.addData("", "Linear %d", robot.linear.getCurrentPosition());
 
+            telemetry.addData("", "Range %f", range);
 
 //        telemetry.addData("", "chain %d", robot.chain.getCurrentPosition());
 //
