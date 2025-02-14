@@ -49,12 +49,13 @@ public class LeftBasket extends LinearOpMode {
 
         steps.add(new SetClaws(robot, runtime, 1, 0.28, 0.3));
         steps.add(new SetClaw(robot, runtime, 1, 0.624, 3));
-        steps.add(new SlideToPosition(robot, runtime, -3500, 0.5, 8));
-        steps.add(new Arm(robot,runtime, 1, 4, 4));
-        steps.add(new RepositionFrontSensor(robot, runtime, 5, 2, -0.7, true, 0, 0.06));
-        steps.add(new StrafeForDistance(robot,24 , 8, 9, runtime, 5, -0.5, 1));
-        steps.add(new StrafeForDistance(robot, 15, 4, 1, runtime, 5, 0.5, 1));
-        steps.add(new RepositionFrontSensor(robot, runtime, 60, 2, -0.7, true, 0, 0.06));
+        steps.add(new SlideToPosition(robot, runtime, -3500, 1, 8));
+        steps.add(new Arm(robot,runtime, 45, 0.5, 4));
+        steps.add(new SetClaws(robot,runtime, 1,0,0.65));
+//        steps.add(new RepositionFrontSensor(robot, runtime, 5, 2, -0.7, true, 0, 0.06));
+//        steps.add(new StrafeForDistance(robot,24 , 8, 9, runtime, 5, -0.5, 1));
+//        steps.add(new StrafeForDistance(robot, 15, 4, 1, runtime, 5, 0.5, 1));
+//        steps.add(new RepositionFrontSensor(robot, runtime, 60, 2, -0.7, true, 0, 0.06));
 
 //        steps.add(new StrafeForDistance(robot,20 , 1, 1, runtime, 5, 0.5, 1));
 //        steps.add(new StrafeForDistance(robot, 20, 1, 1, runtime, 5, -0.5, 1));

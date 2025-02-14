@@ -52,7 +52,7 @@ public class Arm extends Command {
     public void run() {
         if (getState() == RUNNING) {
             double elapsedTime = timer.milliseconds()-startTime;
-            if (elapsedTime < timeOut && Math.abs(robot.arm.getCurrentPosition()-position) > 10) {
+            if (elapsedTime < timeOut && Math.abs(robot.arm.getCurrentPosition()-position) > -5000) {
                 robot.arm.setTargetPosition(position);
                 robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.arm.setPower(powerLevel);

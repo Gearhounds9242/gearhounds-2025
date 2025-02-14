@@ -72,8 +72,8 @@ public class SlideToPosition extends Command {
 
     public void end() {
         if (getState() == ENDING && useEnd) {
-            robot.rightLift.setPower(0);
-            robot.leftLift.setPower(0);
+            robot.rightLift.setPower(1);
+            robot.leftLift.setPower(1);
         }
         setState(DONE);
     }
