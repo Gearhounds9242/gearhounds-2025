@@ -418,6 +418,8 @@ public class Mechanum extends OpMode {
 
             telemetry.addData("", "Linear %d", robot.linear.getCurrentPosition());
 
+        telemetry.addData("", "Arm %d", robot.arm.getCurrentPosition());
+
             telemetry.addData("", "Range %f", range);
 
 //        telemetry.addData("", "chain %d", robot.chain.getCurrentPosition());
