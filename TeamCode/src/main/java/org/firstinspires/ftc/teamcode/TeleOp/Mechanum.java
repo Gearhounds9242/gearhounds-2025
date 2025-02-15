@@ -81,6 +81,8 @@ public class Mechanum extends OpMode {
                 robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
             }
         }
+
+
     }
 
 
@@ -131,10 +133,14 @@ public class Mechanum extends OpMode {
 
 //This code allows you to move the linear actuator in and out with limits and changeable speed
         if (gamepad1.dpad_down && robot.linear.getCurrentPosition() < -200) {  // 5030 is upper limit on Linear Actuator for future me
+            robot.linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.linear.setVelocity(1000000);
         } else if (gamepad1.dpad_up && robot.linear.getCurrentPosition() > -4150) { // 740 is lower limit on Linear Actuator for future me
+            robot.linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.linear.setVelocity(-1000000);
         } else {
+            robot.linear.setTargetPosition(robot.linear.getCurrentPosition());
+            robot.linear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.linear.setPower(0);
         }
 
@@ -229,6 +235,18 @@ public class Mechanum extends OpMode {
                 robot.leftLift.setPower(LiftHoldPower);
                 robot.rightLift.setPower(LiftHoldPower);
             }
+        if (gamepad1.b){
+            robot.linear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.linear.setTargetPosition(0);
+            robot.linear.setPower(0.8);
+        }
+
+        if (gamepad2.right_stick_button){
+            robot.linear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.linear.setTargetPosition(0);
+            robot.linear.setPower(0.8);
+        }
+
 
 //            if (LiftAverage < LiftThreshold && LiftMoving == false){
 //                robot.leftLift.setVelocity(LiftHoldPower);

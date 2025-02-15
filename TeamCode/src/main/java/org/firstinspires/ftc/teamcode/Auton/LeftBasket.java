@@ -5,14 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.AutonCommands.Arm;
-import org.firstinspires.ftc.teamcode.AutonCommands.MoveForDistance;
-import org.firstinspires.ftc.teamcode.AutonCommands.RepositionFrontSensor;
 import org.firstinspires.ftc.teamcode.AutonCommands.SetClaw;
 import org.firstinspires.ftc.teamcode.AutonCommands.SetClaws;
 import org.firstinspires.ftc.teamcode.AutonCommands.SlideToPosition;
-import org.firstinspires.ftc.teamcode.AutonCommands.StrafeForDistance;
-import org.firstinspires.ftc.teamcode.AutonCommands.TurnByAngle;
-import org.firstinspires.ftc.teamcode.AutonCommands.WaitForTime;
 import org.firstinspires.ftc.teamcode.Utilities.Command;
 import org.firstinspires.ftc.teamcode.Utilities.GearHoundsHardware;
 
@@ -50,7 +45,7 @@ public class LeftBasket extends LinearOpMode {
         steps.add(new SetClaws(robot, runtime, 1, 0.28, 0.3));
         steps.add(new SetClaw(robot, runtime, 1, 0.624, 3));
         steps.add(new SlideToPosition(robot, runtime, -3500, 1, 8));
-        steps.add(new Arm(robot,runtime, 45, 0.5, 4));
+        steps.add(new Arm(robot,runtime, 60, 0.5, 4));
         steps.add(new SetClaws(robot,runtime, 1,0,0.65));
 //        steps.add(new RepositionFrontSensor(robot, runtime, 5, 2, -0.7, true, 0, 0.06));
 //        steps.add(new StrafeForDistance(robot,24 , 8, 9, runtime, 5, -0.5, 1));

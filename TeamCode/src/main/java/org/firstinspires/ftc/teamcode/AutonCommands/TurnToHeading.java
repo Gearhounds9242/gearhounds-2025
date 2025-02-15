@@ -7,11 +7,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Utilities.Command;
 import org.firstinspires.ftc.teamcode.Utilities.GearHoundsHardware;
 import org.firstinspires.ftc.teamcode.Utilities.Hardware;
-import org.firstinspires.ftc.teamcode.Utilities.Command;
-import org.firstinspires.ftc.teamcode.Utilities.GearHoundsHardware;
-import org.firstinspires.ftc.teamcode.Utilities.Hardware;
 
-public class TurnByAngle extends Command {
+public class TurnToHeading extends Command {
     private ElapsedTime timer;
     private double startTime;
     private double timeOut;
@@ -21,20 +18,20 @@ public class TurnByAngle extends Command {
     private double deltaAngle;
     double turnSign;
 
-    public TurnByAngle(Hardware robot, ElapsedTime timer, double deltaAngle, double powerLevel, double timeOut) {
+    public TurnToHeading(Hardware robot, ElapsedTime timer, double heading, double powerLevel, double timeOut) {
         super(robot);
         this.robot = (GearHoundsHardware) getRobot();
 
         // turnSign is positive for right turn
-        turnSign = Math.signum(deltaAngle);
+//        turnSign = Math.signum(deltaAngle);
         //testRobot.resetAngle();
         this.timer = timer;
         if (timeOut < 0) {
             timeOut = 30.0;
         }
-        this.timeOut = timeOut*1000;
+        this.timeOut = timeOut * 1000;
         this.powerLevel = powerLevel;
-        this.deltaAngle = deltaAngle;
+        this.desiredAngle = heading;
         setState(STARTING);
     }
 
@@ -52,7 +49,7 @@ public class TurnByAngle extends Command {
             robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             // Right turn (positive delta) is negative direction for gyro
             //this.desiredAngle = robot.getAngle()-deltaAngle;  //  BY ANGLE
-            this.desiredAngle = -deltaAngle;    // TO ANGLE
+            this.turnSign = Math.signum(desiredAngle - robot.getAngle()) ;// TO ANGLE
 
             setState(RUNNING);
         }
@@ -60,33 +57,37 @@ public class TurnByAngle extends Command {
 
     public void run() {
         if (getState() == RUNNING) {
-            double elapsedTime = timer.milliseconds()-startTime;
+            double elapsedTime = timer.milliseconds() - startTime;
             double currentAngle = robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
             // Gyro angle gets more negative turning right, but user angles are positive turning right
-            double angleError = desiredAngle-currentAngle;
-            while (Math.abs(angleError) > 0.5 && elapsedTime < timeOut) {
-                //turnSign = Math.signum(angleError);
-                currentAngle = robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-                angleError = desiredAngle-currentAngle;
-                double powerFactor = Math.min((-turnSign*angleError)/45.0+0.1,1.0);
-                // turnSign = 1 is right turn
-                robot.leftFront.setPower(turnSign*powerLevel*powerFactor);
-                robot.rightFront.setPower(-turnSign*powerLevel*powerFactor);
-                robot.leftBack.setPower(turnSign*powerLevel*powerFactor);
-                robot.rightBack.setPower(-turnSign*powerLevel*powerFactor);
+            double angleError = desiredAngle - currentAngle;
+
+            if (turnSign * angleError > 0.2 && elapsedTime < timeOut) {
+                double powerFactor = Math.min(Math.abs((turnSign * angleError) / 45.0), 1.0);
+
+                robot.leftFront.setPower(-turnSign * powerLevel * powerFactor);
+                robot.rightFront.setPower(turnSign * powerLevel * powerFactor);
+                robot.leftBack.setPower(-turnSign * powerLevel * powerFactor);
+                robot.rightBack.setPower(turnSign * powerLevel * powerFactor);
+            } else {
+                setState(ENDING);
             }
-            setState(ENDING);
         }
-    }
 
+//        public void end() {
+//            if (getState() == ENDING) {
+//                robot.leftFront.setPower(0);
+//                robot.rightFront.setPower(0);
+//                robot.leftBack.setPower(0);
+//                robot.rightBack.setPower(0);
+//            }
+//            setState(DONE);
+//        }
+    }
     public void end() {
-        if (getState() == ENDING) {
-            robot.leftFront.setPower(0);
-            robot.rightFront.setPower(0);
-            robot.leftBack.setPower(0);
-            robot.rightBack.setPower(0);
-        }
-        setState(DONE);
+        robot.leftFront.setPower(0);
+        robot.rightFront.setPower(0);
+        robot.leftBack.setPower(0);
+        robot.rightBack.setPower(0);
     }
-
 }

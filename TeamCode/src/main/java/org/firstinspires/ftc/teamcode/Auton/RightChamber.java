@@ -29,24 +29,20 @@
 
 package org.firstinspires.ftc.teamcode.Auton;
 
-import android.transition.Slide;
-
-import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.AutonCommands.Arm;
 import org.firstinspires.ftc.teamcode.AutonCommands.MoveForDistance;
 import org.firstinspires.ftc.teamcode.AutonCommands.RepositionFrontSensor;
 import org.firstinspires.ftc.teamcode.AutonCommands.SetClaws;
-import org.firstinspires.ftc.teamcode.AutonCommands.SetWrist;
 import org.firstinspires.ftc.teamcode.AutonCommands.StrafeForDistance;
-import org.firstinspires.ftc.teamcode.AutonCommands.TurnByAngle;
+import org.firstinspires.ftc.teamcode.AutonCommands.TurnToHeading;
 import org.firstinspires.ftc.teamcode.AutonCommands.WaitForTime;
 import org.firstinspires.ftc.teamcode.Utilities.Command;
 //import org.firstinspires.ftc.teamcode.AutonCommands.SlideToPosition;
-import org.firstinspires.ftc.teamcode.Utilities.GearHoundsHardware;
 import org.firstinspires.ftc.teamcode.Utilities.GearHoundsHardware;
 
 import java.util.ArrayList;
@@ -78,7 +74,7 @@ import java.util.List;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name = "Right")
+@Autonomous(name = "RightChamber")
 public class RightChamber extends LinearOpMode {
     private GearHoundsHardware robot = new GearHoundsHardware();
     //Create elapsed time variable and an instance of elapsed time
@@ -102,13 +98,32 @@ public class RightChamber extends LinearOpMode {
 
 
 
+        robot.imu.resetYaw();
+
+        telemetry.addData("Range", "%f", robot.getDistance(robot.ranger));
+        steps.add(new SetClaws(robot, runtime, 0.1, 0.28, 0.3));
+        robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.arm.setTargetPosition(20);
+        robot.arm.setPower(0.8);
+        steps.add(new MoveForDistance(robot, 1,0.3, 0.3, runtime, 5, 0.7, 1));
+        steps.add(new StrafeForDistance(robot, 4, 0.3, 0.3, runtime, 5, -0.5, 1));
+        steps.add(new RepositionFrontSensor(robot, runtime, 30, 10, -0.8, true, 0, 0.01));
+        steps.add(new Arm(robot,runtime, 120, 0.9, 1));
+        steps.add(new SetClaws(robot,runtime, 0.1,0,0.65));
+        steps.add(new WaitForTime(robot, runtime, 0.1));
+        steps.add(new Arm(robot,runtime, 20, 0.9, 1));
+        steps.add(new MoveForDistance(robot, 10,0.3, 0.3, runtime, 5, -1, 1));
+        steps.add(new StrafeForDistance(robot, 20, 3, 5, runtime, 5, 0.5, 1));
+        steps.add(new TurnToHeading(robot, runtime, -45, 0.4, 10));
+//        steps.add(new TurnToHeading(robot, runtime, -45, 0.4, 10));
+//        steps.add(new MoveForDistance(robot, 10,3, 5, runtime, 5, 1, 1));
 
 
-        steps.add(new RepositionFrontSensor(robot, runtime, 26, 2, -0.7, true, 0, 0.06));
-        steps.add(new WaitForTime(robot, runtime, 1));
-        steps.add(new MoveForDistance(robot, 4, 1, 0.5, runtime, 5, -1, 1));
-        steps.add(new StrafeForDistance(robot, 20, 10, 3, runtime, 5, 0.5, 1));
-        steps.add(new RepositionFrontSensor(robot, runtime, 54, 2, -0.7, true, 0, 0.06));
+
+//        steps.add(new WaitForTime(robot, runtime, 1));
+//        steps.add(new MoveForDistance(robot, 4, 1, 0.5, runtime, 5, -1, 1));
+//        steps.add(new StrafeForDistance(robot, 20, 10, 3, runtime, 5, 0.5, 1));
+//        steps.add(new RepositionFrontSensor(robot, runtime, 54, 2, -0.7, true, 0, 0.06));
 //        steps.add(new MoveForDistance(robot, 3,2 , 1, runtime, 5, -1, 1));
 //        steps.add(new TurnByAngle (robot, runtime, 175, -0.8, 1));
 //        steps.add(new WaitForTime(robot, runtime, 2));
