@@ -39,6 +39,7 @@ import org.firstinspires.ftc.teamcode.AutonCommands.MoveForDistance;
 import org.firstinspires.ftc.teamcode.AutonCommands.RepositionFrontSensor;
 import org.firstinspires.ftc.teamcode.AutonCommands.SetClaws;
 import org.firstinspires.ftc.teamcode.AutonCommands.StrafeForDistance;
+import org.firstinspires.ftc.teamcode.AutonCommands.TurnByAngle;
 import org.firstinspires.ftc.teamcode.AutonCommands.TurnToHeading;
 import org.firstinspires.ftc.teamcode.AutonCommands.WaitForTime;
 import org.firstinspires.ftc.teamcode.Utilities.Command;
@@ -115,6 +116,7 @@ public class RightChamber extends LinearOpMode {
         steps.add(new MoveForDistance(robot, 10,0.3, 0.3, runtime, 5, -1, 1));
         steps.add(new StrafeForDistance(robot, 20, 3, 5, runtime, 5, 0.5, 1));
         steps.add(new TurnToHeading(robot, runtime, -45, 0.4, 10));
+        steps.add(new TurnByAngle(robot,4, 40, 40, 4));
 //        steps.add(new TurnToHeading(robot, runtime, -45, 0.4, 10));
 //        steps.add(new MoveForDistance(robot, 10,3, 5, runtime, 5, 1, 1));
 
