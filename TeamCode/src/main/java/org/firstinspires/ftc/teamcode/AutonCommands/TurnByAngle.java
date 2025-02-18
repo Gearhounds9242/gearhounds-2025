@@ -21,6 +21,7 @@ public class TurnByAngle extends Command {
     private double deltaAngle;
     double turnSign;
 
+
     public TurnByAngle(Hardware robot, ElapsedTime timer, double deltaAngle, double powerLevel, double timeOut) {
         super(robot);
         this.robot = (GearHoundsHardware) getRobot();
@@ -61,12 +62,12 @@ public class TurnByAngle extends Command {
     public void run() {
         if (getState() == RUNNING) {
             double elapsedTime = timer.milliseconds()-startTime;
-            double currentAngle = robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+            double currentAngle = robot.getAngle();
             // Gyro angle gets more negative turning right, but user angles are positive turning right
             double angleError = desiredAngle-currentAngle;
-            while (Math.abs(angleError) > 0.5 && elapsedTime < timeOut) {
+            if (Math.abs(angleError) > 2.0 && elapsedTime < timeOut) {
                 //turnSign = Math.signum(angleError);
-                currentAngle = robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                currentAngle = robot.getAngle();
                 angleError = desiredAngle-currentAngle;
                 double powerFactor = Math.min((-turnSign*angleError)/45.0+0.1,1.0);
                 // turnSign = 1 is right turn
@@ -74,8 +75,9 @@ public class TurnByAngle extends Command {
                 robot.rightFront.setPower(-turnSign*powerLevel*powerFactor);
                 robot.leftBack.setPower(turnSign*powerLevel*powerFactor);
                 robot.rightBack.setPower(-turnSign*powerLevel*powerFactor);
+            } else {
+                setState(ENDING);
             }
-            setState(ENDING);
         }
     }
 

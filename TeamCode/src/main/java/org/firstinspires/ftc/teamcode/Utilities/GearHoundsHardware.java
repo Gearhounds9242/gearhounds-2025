@@ -166,7 +166,7 @@ public class GearHoundsHardware extends Hardware {
     }
 
     public double getDistance (AnalogInput sens) {
-        return (sens.getVoltage() * 48.7) -4.9;
+        return (sens.getVoltage() * 48.7) - 4.9;
     }
 
     public double clamp( double x, double min, double max) {return Math.max(min,Math.min(max,x));}

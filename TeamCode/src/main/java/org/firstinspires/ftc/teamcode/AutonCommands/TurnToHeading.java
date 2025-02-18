@@ -58,7 +58,7 @@ public class TurnToHeading extends Command {
     public void run() {
         if (getState() == RUNNING) {
             double elapsedTime = timer.milliseconds() - startTime;
-            double currentAngle = robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+            double currentAngle = robot.getAngle();
             // Gyro angle gets more negative turning right, but user angles are positive turning right
             double angleError = desiredAngle - currentAngle;
 
@@ -89,5 +89,6 @@ public class TurnToHeading extends Command {
         robot.rightFront.setPower(0);
         robot.leftBack.setPower(0);
         robot.rightBack.setPower(0);
+        setState(DONE);
     }
 }

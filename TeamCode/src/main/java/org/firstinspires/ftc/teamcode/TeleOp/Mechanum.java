@@ -36,10 +36,11 @@ public class Mechanum extends OpMode {
     private double P1lpadTime = -10;
     private double P1rpadTime = -10;
     public double LiftAverage = 0;
-    public static double LiftHoldPower = 0;
+    public static double LiftHoldPower = 0.3;
     public static double LiftThreshold = -15;
     public static double LiftDownLimmit = -75;
     public static double LiftVelocity = 5000;
+    public static double ArmHoldPower = 0;
     public FtcDashboard dashboard;
     private boolean isRedLED = true;  // Tracks current LED state
     private double lastXPressTime = -1;  // For button debouncing
@@ -52,6 +53,7 @@ public class Mechanum extends OpMode {
     boolean ClawOpen = false;
     boolean ClawSideways = false;
     boolean LiftMoving = false;
+    boolean REDLED = false;
 
     @Override
     public void init() {
@@ -77,8 +79,10 @@ public class Mechanum extends OpMode {
 
             if (isRedLED) {
                 robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+                REDLED = true;
             } else {
                 robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
+                REDLED = false;
             }
         }
 
@@ -133,14 +137,10 @@ public class Mechanum extends OpMode {
 
 //This code allows you to move the linear actuator in and out with limits and changeable speed
         if (gamepad1.dpad_down && robot.linear.getCurrentPosition() < -200) {  // 5030 is upper limit on Linear Actuator for future me
-            robot.linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.linear.setVelocity(1000000);
+            robot.linear.setVelocity(5000);
         } else if (gamepad1.dpad_up && robot.linear.getCurrentPosition() > -4150) { // 740 is lower limit on Linear Actuator for future me
-            robot.linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.linear.setVelocity(-1000000);
+            robot.linear.setVelocity(-5000);
         } else {
-            robot.linear.setTargetPosition(robot.linear.getCurrentPosition());
-            robot.linear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.linear.setPower(0);
         }
 
@@ -183,6 +183,7 @@ public class Mechanum extends OpMode {
             if (((runtime.seconds() - P1xTime) < 1) && ClawSideways == false) {
                 robot.rotate.setPosition(0.485);
                 robot.wrist.setPosition(0.845);
+                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
             } else if (((runtime.seconds() - P1xTime) < 1.05) && ClawSideways == false) {
                 robot.claw.setPosition(0.659);
                 ClawSideways = false;
@@ -190,6 +191,7 @@ public class Mechanum extends OpMode {
 
             if (((runtime.seconds() - P1xTime) < 0.2) && ClawSideways == true) {
                 robot.claw.setPosition(0.67);
+                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
             } else if (((runtime.seconds() - P1xTime) < 1.1) && ClawSideways == true) {
                 robot.rotate.setPosition(0.485);
                 robot.wrist.setPosition(0.845);
@@ -204,8 +206,14 @@ public class Mechanum extends OpMode {
             if ((runtime.seconds() - P1aTime) < 0.1) {
                 robot.rotate.setPosition(0.485);
                 robot.wrist.setPosition(0);
-            } else if ((runtime.seconds() - P1aTime) < 0.2) {
-            }
+                if (REDLED == true){
+                    robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+                }
+                if (REDLED == false){
+                    robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
+
+                }
+            } else if ((runtime.seconds() - P1aTime) < 0.2) {}
 
 
         if (gamepad1.y){
@@ -235,19 +243,14 @@ public class Mechanum extends OpMode {
                 robot.leftLift.setPower(LiftHoldPower);
                 robot.rightLift.setPower(LiftHoldPower);
             }
-        if (gamepad1.b){
-            robot.linear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.linear.setTargetPosition(0);
-            robot.linear.setPower(0.8);
+
+        if (gamepad2.right_stick_y > 0.1 && robot.linear.getCurrentPosition() < -200) {  // 5030 is upper limit on Linear Actuator for future me
+            robot.linear.setVelocity(5000);
+        } else if (gamepad2.right_stick_y > 0.1 && robot.linear.getCurrentPosition() > -4150) { // 740 is lower limit on Linear Actuator for future me
+            robot.linear.setVelocity(-5000);
+        } else {
+            robot.linear.setPower(0);
         }
-
-        if (gamepad2.right_stick_button){
-            robot.linear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.linear.setTargetPosition(0);
-            robot.linear.setPower(0.8);
-        }
-
-
 //            if (LiftAverage < LiftThreshold && LiftMoving == false){
 //                robot.leftLift.setVelocity(LiftHoldPower);
 //                robot.rightLift.setVelocity(LiftHoldPower);
@@ -274,10 +277,13 @@ public class Mechanum extends OpMode {
 
 
             if (gamepad2.dpad_down){
-                robot.arm.setVelocity(-500);
+                robot.arm.setVelocity(-300);
             } else if (gamepad2.dpad_up){
-                robot.arm.setVelocity(500);
-            } else robot.arm.setVelocity(0);
+                robot.arm.setVelocity(300);
+            } else{
+                robot.arm.setPower(0);
+            }
+
 
             if (gamepad2.ps){
                 robot.UpClawL.setPosition(0);
