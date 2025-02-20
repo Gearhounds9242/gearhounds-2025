@@ -106,16 +106,18 @@ public class RightChamber_RED extends LinearOpMode {
         robot.arm.setPower(0.8);
         steps.add(new MoveForDistance(robot, 1,0.3, 0.3, runtime, 5, 0.7, 1));
         steps.add(new StrafeForDistance(robot, 6, 0.3, 0.3, runtime, 5, -0.5, 1));
-        steps.add(new RepositionFrontSensor(robot, runtime, 32, 3, -0.4, true, 0, 0.1));
-        steps.add(new Arm(robot,runtime, 120, 0.9, 1));
+        steps.add(new RepositionFrontSensor(robot, runtime, 36.5, 3, -0.4, true, 0, 0.1));
+        steps.add(new Arm(robot,runtime, 200, 1, 1));
         steps.add(new SetClaws(robot,runtime, 0.1,0,0.65));
         steps.add(new WaitForTime(robot, runtime, 0.1));
         steps.add(new SetClaws(robot, runtime, 0.1, 0.18, 0.45));
         steps.add(new Arm(robot,runtime, 20, 0.9, 1));
         steps.add(new MoveForDistance(robot, 10,0.3, 0.3, runtime, 5, -1, 1));
-        steps.add(new StrafeForDistance(robot, 23, 3, 5, runtime, 5, 0.5, 1));
+        steps.add(new StrafeForDistance(robot, 20, 3, 5, runtime, 5, 0.5, 1));
         steps.add(new TurnToHeading(robot, runtime, 180, -0.4, 3));
-        steps.add(new MoveForDistance(robot, 10,5, 0, runtime, 5, 0.3, 1));
+        steps.add(new MoveForDistance(robot, 16,5, 5, runtime, 5, -0.7, 1));
+        steps.add(new StrafeForDistance(robot, 10, 1, 1, runtime, 5, -0.5, 1));
+        steps.add(new MoveForDistance(robot, 30,5, 5, runtime, 5, 0.7, 1));
 //        steps.add(new TurnToHeading(robot, runtime, -45, 0.4, 10));
 //        steps.add(new MoveForDistance(robot, 10,3, 5, runtime, 5, 1, 1));
 

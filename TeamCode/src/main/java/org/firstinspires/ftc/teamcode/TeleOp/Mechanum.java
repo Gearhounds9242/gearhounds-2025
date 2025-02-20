@@ -41,6 +41,10 @@ public class Mechanum extends OpMode {
     public static double LiftDownLimmit = -75;
     public static double LiftVelocity = 5000;
     public static double ArmHoldPower = 0;
+    public static double WristUP = 0.88;
+    public static double WristDOWN = 0.08;
+    public static double RotateLEFT = 0.89;
+    public static double RotateSTRAIGHT = 0.56;
     public FtcDashboard dashboard;
     private boolean isRedLED = true;  // Tracks current LED state
     private double lastXPressTime = -1;  // For button debouncing
@@ -137,9 +141,9 @@ public class Mechanum extends OpMode {
 
 //This code allows you to move the linear actuator in and out with limits and changeable speed
         if (gamepad1.dpad_down && robot.linear.getCurrentPosition() < -200) {  // 5030 is upper limit on Linear Actuator for future me
-            robot.linear.setVelocity(5000);
+            robot.linear.setVelocity(1000);
         } else if (gamepad1.dpad_up && robot.linear.getCurrentPosition() > -4150) { // 740 is lower limit on Linear Actuator for future me
-            robot.linear.setVelocity(-5000);
+            robot.linear.setVelocity(-1000);
         } else {
             robot.linear.setPower(0);
         }
@@ -160,7 +164,7 @@ public class Mechanum extends OpMode {
             if (((runtime.seconds() - P1lpadTime) < 0.03) && ClawOpen == true) {
                 robot.claw.setPosition(0.67);
             } else if ((runtime.seconds() - P1lpadTime) < 0.04) {
-                robot.rotate.setPosition(0.8);
+                robot.rotate.setPosition(RotateLEFT);
                 ClawOpen = false;
                 ClawSideways = true;
             }
@@ -171,7 +175,7 @@ public class Mechanum extends OpMode {
             if (((runtime.seconds() - P1rpadTime) < 0.05) && ClawOpen == true) {
                 robot.claw.setPosition(0.67);
             } else if ((runtime.seconds() - P1rpadTime) < 0.06) {
-                robot.rotate.setPosition(0.485);
+                robot.rotate.setPosition(RotateSTRAIGHT);
                 ClawOpen = false;
                 ClawSideways = false;
             }
@@ -181,8 +185,8 @@ public class Mechanum extends OpMode {
         }
 
             if (((runtime.seconds() - P1xTime) < 1) && ClawSideways == false) {
-                robot.rotate.setPosition(0.485);
-                robot.wrist.setPosition(0.845);
+                robot.rotate.setPosition(RotateSTRAIGHT);
+                robot.wrist.setPosition(WristUP);
                 robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
             } else if (((runtime.seconds() - P1xTime) < 1.05) && ClawSideways == false) {
                 robot.claw.setPosition(0.659);
@@ -193,8 +197,8 @@ public class Mechanum extends OpMode {
                 robot.claw.setPosition(0.67);
                 robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
             } else if (((runtime.seconds() - P1xTime) < 1.1) && ClawSideways == true) {
-                robot.rotate.setPosition(0.485);
-                robot.wrist.setPosition(0.845);
+                robot.rotate.setPosition(RotateSTRAIGHT);
+                robot.wrist.setPosition(WristUP);
                 ClawSideways = false;
             }
 
@@ -204,8 +208,8 @@ public class Mechanum extends OpMode {
         }
 
             if ((runtime.seconds() - P1aTime) < 0.1) {
-                robot.rotate.setPosition(0.485);
-                robot.wrist.setPosition(0);
+                robot.rotate.setPosition(RotateSTRAIGHT);
+                robot.wrist.setPosition(WristDOWN);
                 if (REDLED == true){
                     robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
                 }
