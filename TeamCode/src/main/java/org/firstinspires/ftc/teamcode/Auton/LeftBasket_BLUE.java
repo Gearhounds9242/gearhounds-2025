@@ -42,7 +42,6 @@ public class LeftBasket_BLUE extends LinearOpMode {
 //        robot.leftClaw.setPosition(1);
 //
 //        robot.rightClaw.setPosition(-0.6);
-//
 //        robot.wrist.setPosition(0)
         robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
         steps.add(new SetClaws(robot, runtime, 1, 0.28, 0.3));
