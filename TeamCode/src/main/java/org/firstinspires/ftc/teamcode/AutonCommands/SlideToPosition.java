@@ -56,24 +56,21 @@ public class SlideToPosition extends Command {
                 robot.rightLift.setTargetPosition(position);
                 robot.rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.rightLift.setPower(powerLevel);
-            } else {
-                setState(ENDING);
-            }
-
-            if (elapsedTime < timeOut && Math.abs(robot.leftLift.getCurrentPosition()-position) > 10) {
                 robot.leftLift.setTargetPosition(position);
                 robot.leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.leftLift.setPower(powerLevel);
             } else {
                 setState(ENDING);
             }
+
+
         }
     }
 
     public void end() {
         if (getState() == ENDING && useEnd) {
-            robot.rightLift.setPower(0);
-            robot.leftLift.setPower(0);
+            robot.rightLift.setPower(0.3);
+            robot.leftLift.setPower(0.3);
         }
         setState(DONE);
     }

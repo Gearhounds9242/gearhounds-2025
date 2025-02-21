@@ -84,15 +84,15 @@ public class RepositionFrontSensor extends Command {
                 double powerFactor = Math.min(Math.abs(startMeasure - distance - (startMeasure - measure))/20.0,1.0);
                 if (angleError > 0) {
                     if (measure > distance + 0.3) {
-                        robot.leftFront.setPower(powerLevel * powerFactor - correctionFactor);
-                        robot.leftBack.setPower(powerLevel * powerFactor - correctionFactor);
-                        robot.rightFront.setPower(powerLevel * powerFactor);
-                        robot.rightBack.setPower(powerLevel * powerFactor);
-                    } else if (measure < distance - 0.3) {
                         robot.leftFront.setPower(-powerLevel * powerFactor - correctionFactor);
                         robot.leftBack.setPower(-powerLevel * powerFactor - correctionFactor);
                         robot.rightFront.setPower(-powerLevel * powerFactor);
                         robot.rightBack.setPower(-powerLevel * powerFactor);
+                    } else if (measure < distance - 0.3) {
+                        robot.leftFront.setPower(powerLevel * powerFactor - correctionFactor);
+                        robot.leftBack.setPower(powerLevel * powerFactor - correctionFactor);
+                        robot.rightFront.setPower(powerLevel * powerFactor);
+                        robot.rightBack.setPower(powerLevel * powerFactor);
                     } else {
                         setState(ENDING);
                     }

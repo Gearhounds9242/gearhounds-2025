@@ -54,7 +54,7 @@ public class LeftBasket_BLUE extends LinearOpMode {
         steps.add(new Arm(robot,runtime, 160, 0.5, 3));
         steps.add(new SetClaws(robot,runtime, 1,0,0.65));
         steps.add(new Arm(robot,runtime, 0, 0.5, 2));
-//        steps.add(new SlideToPosition(robot, runtime, 0, 1, 8));
+        steps.add(new SlideToPosition(robot, runtime, 0, 1, 8));
 //        steps.add(new RepositionFrontSensor(robot, runtime, 5, 2, -0.7, true, 0, 0.06));
 //        steps.add(new StrafeForDistance(robot,24 , 8, 9, runtime, 5, -0.5, 1));
 //        steps.add(new StrafeForDistance(robot, 15, 4, 1, runtime, 5, 0.5, 1));
