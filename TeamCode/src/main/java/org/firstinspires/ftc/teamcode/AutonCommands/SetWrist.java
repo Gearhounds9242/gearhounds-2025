@@ -35,7 +35,7 @@ public class SetWrist extends Command {
         if (getState() == RUNNING) {
             double elapsedTime = timer.milliseconds()-startTime;
             if (elapsedTime < runTime) {
-                robot.claw.setPosition(servoPosition);
+                robot.wrist.setPosition(servoPosition);
             } else {
                 setState(ENDING);
             }
