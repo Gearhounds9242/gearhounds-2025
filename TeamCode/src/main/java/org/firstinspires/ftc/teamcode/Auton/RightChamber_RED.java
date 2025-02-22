@@ -104,8 +104,8 @@ public class RightChamber_RED extends LinearOpMode {
         robot.arm.setTargetPosition(20);
         robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.arm.setPower(0.8);
-        steps.add(new MoveForDistance(robot, 1,0.3, 0.3, runtime, 5, 0.7, 1));
-        steps.add(new StrafeForDistance(robot, 6, 0.3, 0.3, runtime, 5, -0.5, 1));
+        steps.add(new MoveForDistance(robot, 1,0.3, 0.3, runtime, 5, 1, 1));
+        steps.add(new StrafeForDistance(robot, 6, 0.3, 0.3, runtime, 5, -0.6, 1));
         steps.add(new MoveForDistance(robot, 14.5,3, 10, runtime, 5, 0.5, 1));
         steps.add(new Arm(robot,runtime, 200, 1, 1));
         steps.add(new SetClaws(robot,runtime, 0.1,0,0.65));
@@ -117,11 +117,26 @@ public class RightChamber_RED extends LinearOpMode {
         steps.add(new TurnToHeading(robot, runtime, 170, -0.7, 3));
         steps.add(new MoveForDistance(robot, 16,5, 5, runtime, 5, -0.7, 1));
         steps.add(new StrafeForDistance(robot, 9.5, 1, 1, runtime, 5, -0.5, 1));
-        steps.add(new MoveForDistance(robot, 20,5, 10, runtime, 5, 0.7, 1));
-        steps.add(new TurnToHeading(robot, runtime, 180, 0.2, 3));
-        steps.add(new RepositionFrontSensor(robot, runtime, 5, 2, 0.7, true, 180, 0.06));
         steps.add(new Arm(robot,runtime, 180, 1, 1));
-
+        steps.add(new MoveForDistance(robot, 15,5, 10, runtime, 5, 0.7, 1));
+        steps.add(new TurnToHeading(robot, runtime, 180, -0.5, 1));
+        steps.add(new RepositionFrontSensor(robot, runtime, 15, 2, -0.7, true, 180, 0.06));
+        steps.add(new SetClaws(robot, runtime, 0.1, 0.28, 0.3));
+        steps.add(new MoveForDistance(robot, 0.3,0.1, 0.1, runtime, 1, -0.3, 1));
+        steps.add(new Arm(robot,runtime, 50, 0.8, 1));
+        steps.add(new MoveForDistance(robot, 5,2, 2, runtime, 1, -0.55, 1));
+        steps.add(new TurnToHeading(robot, runtime, 0, -0.5, 3));
+        steps.add(new Arm(robot,runtime, 20, 0.9, 1));
+        steps.add(new StrafeForDistance(robot, 29.5, 0.3, 0.3, runtime, 3, -0.5, 1));
+        steps.add(new TurnToHeading(robot, runtime, 0, -0.1, 1));
+        steps.add(new MoveForDistance(robot, 5,3, 10, runtime, 0.5, 0.5, 1));
+        steps.add(new Arm(robot,runtime, 200, 1, 1));
+        steps.add(new SetClaws(robot,runtime, 0.1,0,0.65));
+        steps.add(new WaitForTime(robot, runtime, 0.1));
+        steps.add(new SetClaws(robot, runtime, 0.1, 0.18, 0.45));
+        steps.add(new Arm(robot,runtime, 20, 0.9, 1));
+        steps.add(new MoveForDistance(robot, 3,0.3, 0.3, runtime, 5, -1, 1));
+        steps.add(new StrafeForDistance(robot, 20, 0, 0, runtime, 5, 1, 1));
 
 
 //        steps.add(new WaitForTime(robot, runtime, 1));
