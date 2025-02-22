@@ -120,7 +120,7 @@ public class RightChamber_RED extends LinearOpMode {
         steps.add(new Arm(robot,runtime, 180, 1, 1));
         steps.add(new MoveForDistance(robot, 15,5, 10, runtime, 5, 0.7, 1));
         steps.add(new TurnToHeading(robot, runtime, 180, -0.5, 1));
-        steps.add(new RepositionFrontSensor(robot, runtime, 15, 2, -0.7, true, 180, 0.06));
+        steps.add(new RepositionFrontSensor(robot, runtime, 14, 2, -0.7, true, 180, 0.06));
         steps.add(new SetClaws(robot, runtime, 0.1, 0.28, 0.3));
         steps.add(new MoveForDistance(robot, 0.3,0.1, 0.1, runtime, 1, -0.3, 1));
         steps.add(new Arm(robot,runtime, 50, 0.8, 1));
@@ -137,7 +137,7 @@ public class RightChamber_RED extends LinearOpMode {
         steps.add(new Arm(robot,runtime, 20, 0.9, 1));
         steps.add(new MoveForDistance(robot, 3,0.3, 0.3, runtime, 5, -1, 1));
         steps.add(new StrafeForDistance(robot, 20, 0, 0, runtime, 5, 1, 1));
-
+        steps.add(new MoveForDistance(robot, 20,10, 0.3, runtime, 5, -4, 1));
 
 //        steps.add(new WaitForTime(robot, runtime, 1));
 //        steps.add(new MoveForDistance(robot, 4, 1, 0.5, runtime, 5, -1, 1));
