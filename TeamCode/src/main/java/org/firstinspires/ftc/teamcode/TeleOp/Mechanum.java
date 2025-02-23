@@ -249,7 +249,7 @@ public class Mechanum extends OpMode {
             }
 
         if (gamepad2.right_stick_y > 0.1 && robot.linear.getCurrentPosition() < -200) {  // 5030 is upper limit on Linear Actuator for future me
-            robot.linear.setVelocity(4000);
+            robot.linear.setVelocity(4000.0);
         } else if (gamepad2.right_stick_y > 0.1 && robot.linear.getCurrentPosition() > -4150) { // 740 is lower limit on Linear Actuator for future me
             robot.linear.setVelocity(-4000);
         }

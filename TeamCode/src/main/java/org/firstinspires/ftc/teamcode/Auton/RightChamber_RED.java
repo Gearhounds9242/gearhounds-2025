@@ -136,7 +136,7 @@ public class RightChamber_RED extends LinearOpMode {
         steps.add(new SetClaws(robot, runtime, 0.1, 0.18, 0.45));
         steps.add(new Arm(robot,runtime, 20, 0.9, 1));
         steps.add(new MoveForDistance(robot, 3,0.3, 0.3, runtime, 5, -1, 1));
-        steps.add(new StrafeForDistance(robot, 20, 0, 0, runtime, 5, 1, 1));
+        steps.add(new StrafeForDistance(robot, 20.05, 0, 0, runtime, 5, 1, 1));
         steps.add(new MoveForDistance(robot, 20,10, 0.3, runtime, 5, -4, 1));
 
 //        steps.add(new WaitForTime(robot, runtime, 1));
