@@ -141,9 +141,9 @@ public class Mechanum extends OpMode {
 
 //This code allows you to move the linear actuator in and out with limits and changeable speed
         if (gamepad1.dpad_down && robot.linear.getCurrentPosition() < -200) {  // 5030 is upper limit on Linear Actuator for future me
-            robot.linear.setVelocity(1000);
+            robot.linear.setVelocity(4000);
         } else if (gamepad1.dpad_up && robot.linear.getCurrentPosition() > -4150) { // 740 is lower limit on Linear Actuator for future me
-            robot.linear.setVelocity(-1000);
+            robot.linear.setVelocity(-4000);
         } else {
             robot.linear.setPower(0);
         }
@@ -249,11 +249,9 @@ public class Mechanum extends OpMode {
             }
 
         if (gamepad2.right_stick_y > 0.1 && robot.linear.getCurrentPosition() < -200) {  // 5030 is upper limit on Linear Actuator for future me
-            robot.linear.setVelocity(5000);
+            robot.linear.setVelocity(4000.0);
         } else if (gamepad2.right_stick_y > 0.1 && robot.linear.getCurrentPosition() > -4150) { // 740 is lower limit on Linear Actuator for future me
-            robot.linear.setVelocity(-5000);
-        } else {
-            robot.linear.setPower(0);
+            robot.linear.setVelocity(-4000);
         }
 //            if (LiftAverage < LiftThreshold && LiftMoving == false){
 //                robot.leftLift.setVelocity(LiftHoldPower);
@@ -281,9 +279,9 @@ public class Mechanum extends OpMode {
 
 
             if (gamepad2.dpad_down){
-                robot.arm.setVelocity(-300);
+                robot.arm.setVelocity(-800);
             } else if (gamepad2.dpad_up){
-                robot.arm.setVelocity(300);
+                robot.arm.setVelocity(800);
             } else{
                 robot.arm.setPower(0);
             }
@@ -302,6 +300,11 @@ public class Mechanum extends OpMode {
             if (gamepad2.right_bumper){
                 robot.UpClawL.setPosition(0.28);
                 robot.UpClawR.setPosition(0.3);
+            }
+
+            if (gamepad2.left_trigger > 0.8){
+                robot.UpClawL.setPosition(0.1);
+                robot.UpClawR.setPosition(0.5);
             }
 
 //            if (gamepad2.b){
