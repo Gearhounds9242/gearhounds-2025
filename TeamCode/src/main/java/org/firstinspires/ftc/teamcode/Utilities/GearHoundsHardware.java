@@ -70,13 +70,13 @@ public class GearHoundsHardware extends Hardware {
         // Define and Initialize Motors for drivetrain
         //huskyLens = robotMap.get(HuskyLens.class, "huskyLens");
 
-        claw = robotMap.get(Servo.class, "claw");
-        rotate = robotMap.get(Servo.class, "rotate");
-        wrist = robotMap.get(Servo.class,"wrist");
-        UpClawL = new ServoArm(robotMap.get(Servo.class,"up_claw_left"));
-        UpClawR = robotMap.get(Servo.class,"up_claw_right");
-
-        ranger = robotMap.get(AnalogInput.class, "ranger");
+//        claw = robotMap.get(Servo.class, "claw");
+//        rotate = robotMap.get(Servo.class, "rotate");
+//        wrist = robotMap.get(Servo.class,"wrist");
+//        UpClawL = new ServoArm(robotMap.get(Servo.class,"up_claw_left"));
+//        UpClawR = robotMap.get(Servo.class,"up_claw_right");
+//
+//        ranger = robotMap.get(AnalogInput.class, "ranger");
 
         leftFront  = robotMap.get(DcMotorEx.class, "front_left");
         leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -98,28 +98,28 @@ public class GearHoundsHardware extends Hardware {
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        linear = robotMap.get(DcMotorEx.class, "linear");
-        linear.setDirection(DcMotorSimple.Direction.REVERSE);
-        linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        linear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        leftLift = robotMap.get(DcMotorEx.class, "left_lift");
-        leftLift.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        rightLift = robotMap.get(DcMotorEx.class, "right_lift");
-        rightLift.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        arm = robotMap.get(DcMotorEx.class, "arm");
-        arm.setDirection(DcMotorSimple.Direction.FORWARD);
-        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        blinkin = robotMap.get(RevBlinkinLedDriver.class, "blinkin");
-        blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
-        //leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        linear = robotMap.get(DcMotorEx.class, "linear");
+//        linear.setDirection(DcMotorSimple.Direction.REVERSE);
+//        linear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        linear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//
+//        leftLift = robotMap.get(DcMotorEx.class, "left_lift");
+//        leftLift.setDirection(DcMotorSimple.Direction.REVERSE);
+//        leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//
+//        rightLift = robotMap.get(DcMotorEx.class, "right_lift");
+//        rightLift.setDirection(DcMotorSimple.Direction.FORWARD);
+//        rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//
+//        arm = robotMap.get(DcMotorEx.class, "arm");
+//        arm.setDirection(DcMotorSimple.Direction.FORWARD);
+//        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//
+//        blinkin = robotMap.get(RevBlinkinLedDriver.class, "blinkin");
+//        blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+//        //leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //        huskyLens = robotMap.get(HuskyLens.class, "huskyLens");
 
@@ -129,8 +129,8 @@ public class GearHoundsHardware extends Hardware {
         // Defines the parameters for the gyro (units)
         IMU.Parameters imuParameters = new IMU.Parameters(
                 new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.DOWN,
-                        RevHubOrientationOnRobot.UsbFacingDirection.RIGHT
+                        RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                        RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD
                 )
         );
         imu.initialize(imuParameters);
