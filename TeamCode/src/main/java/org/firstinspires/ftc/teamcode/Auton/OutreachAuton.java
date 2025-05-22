@@ -44,6 +44,20 @@ public class OutreachAuton extends LinearOpMode {
         telemetry.update();
 
 
+        steps.add(new MoveForDistance(robot,1 , 1, 0, runtime, 3, 1, 0.5));
+        steps.add(new StrafeForDistance(robot,24 , 3, 3, runtime, 5, 1, 1));
+        steps.add(new MoveForDistance(robot,56 , 5, 5, runtime, 10, 1, 0.5));
+        steps.add(new TurnToHeading(robot, runtime, 90, 0.6, 3));
+        steps.add(new MoveForDistance(robot,4 , 2, 1, runtime, 3, 1, 0.5));
+        steps.add(new SetClaw(robot, runtime, 1, 0.67, 3));
+        steps.add(new MoveForDistance(robot,4 , 2, 1, runtime, 3, -1, 0.5));
+        steps.add(new StrafeForDistance(robot,6 , 1, 3, runtime, 3, -0.5, 1));
+        steps.add(new Arm(robot,runtime, 20, 0.9, 1));
+        steps.add(new SetClaws(robot, runtime, 0.1, 0.18, 0.45));
+        steps.add(new WaitForTime(robot, runtime, 0.3));
+        steps.add(new TurnToHeading(robot, runtime, 270, 0.6, 3));
+        steps.add(new Arm(robot,runtime, 200, 0.9, 1));
+        steps.add(new SetClaws(robot,runtime, 0.1,0,0.65));
 
 
 
