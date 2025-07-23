@@ -81,13 +81,13 @@ public class Mechanum extends OpMode {
             lastXPressTime = runtime.seconds();
             isRedLED = !isRedLED;  // Toggle the state
 
-            if (isRedLED) {
-                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
-                REDLED = true;
-            } else {
-                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
-                REDLED = false;
-            }
+//            if (isRedLED) {
+//                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+//                REDLED = true;
+//            } else {
+//                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
+//                REDLED = false;
+//            }
         }
 
 
@@ -129,7 +129,7 @@ public class Mechanum extends OpMode {
         }
 
 // grabbing turning voltage into inchs
-        double range = (robot.ranger.getVoltage() * 48.7) - 4.9;
+//        double range = (robot.ranger.getVoltage() * 48.7) - 4.9;
 
         // Send data to Dashboard
         TelemetryPacket packet = new TelemetryPacket();
@@ -187,7 +187,7 @@ public class Mechanum extends OpMode {
             if (((runtime.seconds() - P1xTime) < 1) && ClawSideways == false) {
                 robot.rotate.setPosition(RotateSTRAIGHT);
                 robot.wrist.setPosition(WristUP);
-                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
+//                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
             } else if (((runtime.seconds() - P1xTime) < 1.05) && ClawSideways == false) {
                 robot.claw.setPosition(0.659);
                 ClawSideways = false;
@@ -195,7 +195,7 @@ public class Mechanum extends OpMode {
 
             if (((runtime.seconds() - P1xTime) < 0.2) && ClawSideways == true) {
                 robot.claw.setPosition(0.67);
-                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
+//                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
             } else if (((runtime.seconds() - P1xTime) < 1.1) && ClawSideways == true) {
                 robot.rotate.setPosition(RotateSTRAIGHT);
                 robot.wrist.setPosition(WristUP);
@@ -210,13 +210,13 @@ public class Mechanum extends OpMode {
             if ((runtime.seconds() - P1aTime) < 0.1) {
                 robot.rotate.setPosition(RotateSTRAIGHT);
                 robot.wrist.setPosition(WristDOWN);
-                if (REDLED == true){
-                    robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
-                }
-                if (REDLED == false){
-                    robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
-
-                }
+//                if (REDLED == true){
+//                    robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+//                }
+//                if (REDLED == false){
+//                    robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
+//
+//                }
             } else if ((runtime.seconds() - P1aTime) < 0.2) {}
 
 
@@ -451,7 +451,7 @@ public class Mechanum extends OpMode {
 
         telemetry.addData("", "Arm %d", robot.arm.getCurrentPosition());
 
-            telemetry.addData("", "Range %f", range);
+//            telemetry.addData("", "Range %f", range);
 
 //        telemetry.addData("", "chain %d", robot.chain.getCurrentPosition());
 //

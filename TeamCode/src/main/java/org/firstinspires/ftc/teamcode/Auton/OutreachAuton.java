@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Autonomous(name = "LeftBasket")
+@Autonomous(name = "Outreach_Auton")
 public class OutreachAuton extends LinearOpMode {
     private GearHoundsHardware robot = new GearHoundsHardware();
     //Create elapsed time variable and an instance of elapsed time
